@@ -21,11 +21,11 @@ class Start1Page(Screen):
     def __init__(self,**kwargs):
         super(Start1Page,self).__init__(**kwargs)
         pg1 = BoxLayout(orientation = "vertical")
-        top1_label = Label(text = "Welcome to", size_hint = (1.0, 0.25), font_size = 50 ,color=(1, 1, 1, 1))
-        logo1_label = Label(text = "#1Place holder for project logo",size_hint = (1.0, 0.25))
-        text1_label = Label(text = "Before we begin, lets see \nall the features you \ncould get your hands on",size_hint = (1.0, 0.25), font_size = 20)
+        top1_label = Label(text = "Welcome to", size_hint = (1.0, 0.3), font_size = 50 ,color=(1, 1, 1, 1))
+        logo1_label = Label(text = "#1Place holder for project logo",size_hint = (1.0, 0.3))
+        text1_label = Label(text = "Before we begin, lets see \nall the features you \ncould get your hands on",size_hint = (1.0, 0.3), font_size = 30)
  
-        pg1_1 = BoxLayout(size_hint = (1.0, 0.2))
+        pg1_1 = BoxLayout(size_hint = (1.0, 0.15))
         btn1_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
         btn1_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
         pg1_1.add_widget(btn1_skip)
@@ -50,9 +50,9 @@ class Start2Page(Screen):
     def __init__(self,**kwargs):
         super(Start2Page,self).__init__(**kwargs)
         pg2 = BoxLayout(orientation = "vertical")
-        logo2_label = Label(text = "#2Placeholder for project logo", size_hint = (1.0, 0.2))
-        my_text1 = "In CRoom, you can: \n-Find 1k+ hostels and flats in you area \n-Search for hostel/flat in 20+ areas \n-Save your favourite room for later \n-be a landlord \n-And more..."
-        text2_label = Label(text = my_text1)
+        logo2_label = Label(text = "#2Placeholder for project logo", size_hint = (1.0, 0.3),font_size = 30)
+        my_text1 = "In CRoom, you can: \n-Find 1k+ hostels and flats\nin you area \n-Search for hostel/flat in\n20+ areas \n-Save your favourite room\nfor later \n-be a landlord \n-And more..."
+        text2_label = Label(text = my_text1, font_size = 30)
 
         pg2_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn2_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
@@ -84,9 +84,9 @@ class Start3Page(Screen):
     def __init__(self,**kwargs):
         super(Start3Page,self).__init__(**kwargs)
         pg3 = BoxLayout(orientation = "vertical")
-        logo3_label = Label(text = "#3Placeholder for project logo", size_hint = (1.0, 0.2))
-        my_text2 = "We also provide:\n  Zer0 paper work,\n  Zer0 brokerage,\n  Zer0 Installment,\n  Reasonable price for call and subscription!"
-        text3_label = Label(text = my_text2)
+        logo3_label = Label(text = "#3Placeholder for project logo", size_hint = (1.0, 0.2), font_size = 30)
+        my_text2 = "We also provide:\n  Zer0 paper work,\n  Zer0 brokerage,\n  Zer0 Installment,\n  Reasonable price for\ncall and subscription!"
+        text3_label = Label(text = my_text2, font_size = 30)
 
         pg3_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn3_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
@@ -118,10 +118,10 @@ class Start4Page(Screen):
     def __init__(self,**kwargs):
         super(Start4Page,self).__init__(**kwargs)
         pg4 = BoxLayout(orientation = "vertical")
-        logo4_label = Label(text = "#4Placeholder for project logo", size_hint = (1.0, 0.2))
-        text4_label = Label(text = "So what are you \nwaiting for?", size_hint = (1.0,0.2))
-        text4_1_label = Label(text = "Put on your shoes\nand lets get\nstarted", size_hint = (1.0,0.2))
-        text4_2_label = Label(text = "#Placeholder for image")
+        logo4_label = Label(text = "#4Placeholder for project logo", size_hint = (1.0, 0.3), font_size = 30)
+        text4_label = Label(text = "So what are you \nwaiting for?", size_hint = (1.0,0.3), font_size = 30)
+        text4_1_label = Label(text = "Put on your shoes\nand lets get\nstarted", size_hint = (1.0,0.3), font_size = 30)
+        text4_2_label = Label(text = "#Placeholder for image", size_hint = (1.0, 0.3), font_size = 30)
 
         pg4_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn4_start = Button(text = "Start", size_hint = (0.3, 1.0), on_press = self.start)
