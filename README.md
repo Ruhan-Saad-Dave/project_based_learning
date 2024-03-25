@@ -4,7 +4,7 @@
 
 <br>
 <h1>Instructions of use:</h1>
-Make sure you have done all the requirements mentioned below,
+Make sure you have done all the requirements mentioned below, or else the program will automatically install the requirements(This process is in beta)
 <br>And you need to run the "main.py" file
 
 <hr>
