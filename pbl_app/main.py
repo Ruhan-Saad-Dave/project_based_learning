@@ -5,7 +5,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.pagelayout import PageLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.graphics import Color, Rectangle
+from check import check_and_install_modules as cim
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
@@ -192,4 +192,5 @@ class MyApp(App):
         return screen_manager
     
 if __name__ == "__main__":
+    cim()
     MyApp().run()
