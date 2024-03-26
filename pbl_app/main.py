@@ -2,20 +2,48 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-from kivy.uix.pagelayout import PageLayout
+from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition, CardTransition
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from check import check_and_install_modules as cim
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
         super(MainPage, self).__init__(**kwargs)
-        button = Button(text = "Welcome to main page\nOops, you are a bit early!\nWork under progress", on_press = self.start)
-        self.add_widget(button)
+        out = BoxLayout(orientation = "vertical")
+        top1 = BoxLayout(size_hint = (1.0, 0.1))
+        top2 = BoxLayout(size_hint = (1.0, 0.1))
+        top3 = BoxLayout(size_hint = (1.0, 0.1))
 
-    def start(self, instance):
-        self.manager.transition = SlideTransition(direction = "down")
-        self.manager.current = "start1page"
+        tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.25, 1.0))
+        login_btn = Button(text = "Login", on_press = self.tools, size_hint = (0.25, 1.0))
+        blank = Label(text = "____", size_hint = (0.2, 1.0))
+        logo_label = Label(text = "#place for logo")
+        top1.add_widget(tools_btn)
+        top1.add_widget(login_btn)
+        top1.add_widget(blank)
+        top1.add_widget(logo_label)
+
+        hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func)
+        flat_btn = ToggleButton(text = "Flat", on_press = self.flat_func)
+        roommate_btn = ToggleButton(text = "Room Mate", on_press = self.roommate_func)
+        top2.add_widget(hostel_btn)
+        top2.add_widget(flat_btn)
+        top2.add_widget(roommate_btn)
+
+        self.add_widget(top1)
+        self.add_widget(top2)
+
+    def hostel_func(self, instance):
+        pass
+    def flat_func(self, instance):
+        pass
+    def roommate_func(self, instance):
+        pass
+    def tools(self,instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "push")
+        self.manager.current = "toolpage"
 
 class Start1Page(Screen):
     def __init__(self,**kwargs):
@@ -149,7 +177,13 @@ class Start4Page(Screen):
 class ToolPage(Screen):
     def __init__(self,**kwargs):
         super(ToolPage,self).__init__(**kwargs)
-        #add layouts
+        button = Button(text = "Welcome to tools page\nOops, you are a bit early!\nWork under progress", on_press = self.start)
+        self.add_widget(button)
+
+    def start(self, instance):
+        self.manager.transition = CardTransition(direction = "left", mode = "pop")
+        self.manager.current = "mainpage"
+
     def next(self,instance):
         pass
 
