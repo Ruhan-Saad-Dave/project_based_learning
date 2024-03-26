@@ -1,6 +1,6 @@
 """
 This file is for automatic installation of modules if you dont have it.
-currently under testing
+it is imported as cim in main.py
 """
 
 import importlib
@@ -25,5 +25,3 @@ def check_and_install_modules():
             install_module(module_name)
         else:
             print(f"module {module_name} exists")
-
-#using import on this point in other file
