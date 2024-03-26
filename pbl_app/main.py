@@ -6,6 +6,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition, CardTransition
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from check import check_and_install_modules as cim
 
 class MainPage(Screen):
@@ -17,7 +18,7 @@ class MainPage(Screen):
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
         tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.25, 1.0))
-        login_btn = Button(text = "Login", on_press = self.tools, size_hint = (0.25, 1.0))
+        login_btn = Button(text = "Login", on_press = self.logins, size_hint = (0.25, 1.0))
         blank = Label(text = "____", size_hint = (0.2, 1.0))
         logo_label = Label(text = "#place for logo")
         top1.add_widget(tools_btn)
@@ -32,8 +33,24 @@ class MainPage(Screen):
         top2.add_widget(flat_btn)
         top2.add_widget(roommate_btn)
 
-        self.add_widget(top1)
-        self.add_widget(top2)
+        textinput = TextInput(hint_text = "search")
+        search_btn = Button(text = "search", on_press = self.search, size_hint = (0.1, 1.0))
+        top3.add_widget(textinput)
+        top3.add_widget(search_btn)
+
+        scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        grid = GridLayout(cols = 1, size_hint_y = None)
+        grid.bind(minimum_height = grid.setter('height'))
+        for i in range(50):
+            btn = Button(text = f"Button {i+1}",size_hint_y = None, height = 150)
+            grid.add_widget(btn)
+        scroll.add_widget(grid)
+
+        out.add_widget(top1)
+        out.add_widget(top2)
+        out.add_widget(top3)
+        out.add_widget(scroll)
+        self.add_widget(out)
 
     def hostel_func(self, instance):
         pass
@@ -41,6 +58,14 @@ class MainPage(Screen):
         pass
     def roommate_func(self, instance):
         pass
+
+    def search(self, instance):
+        pass
+    
+    def logins(self, instance):
+        self.manager.transition = SlideTransition(direction = "down")
+        self.manager.current = "mainpage"
+
     def tools(self,instance):
         self.manager.transition = CardTransition(direction = "right", mode = "push")
         self.manager.current = "toolpage"
