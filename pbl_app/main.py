@@ -17,12 +17,10 @@ class MainPage(Screen):
         top2 = BoxLayout(size_hint = (1.0, 0.1))
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
-        tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.25, 1.0))
-        login_btn = Button(text = "Login", on_press = self.logins, size_hint = (0.25, 1.0))
-        blank = Label(text = "____", size_hint = (0.2, 1.0))
+        tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.3, 1.0))
+        blank = Label(text = "____", size_hint = (0.3, 1.0))
         logo_label = Label(text = "#place for logo")
         top1.add_widget(tools_btn)
-        top1.add_widget(login_btn)
         top1.add_widget(blank)
         top1.add_widget(logo_label)
 
@@ -61,10 +59,6 @@ class MainPage(Screen):
 
     def search(self, instance):
         pass
-    
-    def logins(self, instance):
-        self.manager.transition = SlideTransition(direction = "down")
-        self.manager.current = "mainpage"
 
     def tools(self,instance):
         self.manager.transition = CardTransition(direction = "right", mode = "push")
