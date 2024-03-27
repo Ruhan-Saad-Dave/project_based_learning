@@ -11,3 +11,5 @@ Requirments:
 - Frontend (HTML, CSS, JavaScript) ~ For the owner to use
 - Framework (Django)~ Owner will input some details and on press of "submit" button, the framework needs to extract those information and give to backend, and receives new information given by backend and return the data to frontend.
 - backend (MongoDb, Express or Python) ~ Basically receive data from the framework and put on database, and based on the operation selected by Owner, do certain processing and give the data back to framework.
+
+Create new files and edit them as much as you like but do not disturb the app folder.
