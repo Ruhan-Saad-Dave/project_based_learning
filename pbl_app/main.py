@@ -113,7 +113,7 @@ class ToolPage(Screen):
         top_box.add_widget(user_name)
         top_box.add_widget(mess_btn)
 
-        btn_box = BoxLayout(orientation = "vertical", height = 300)
+        btn_box = BoxLayout(orientation = "vertical")
         prof_btn = Button(text = "Profile", on_press = self.prof)
         hist_btn = Button(text = "Search History", on_press = self.hist)
         saved_btn = Button(text = "Saved", on_press = self.save)
@@ -127,9 +127,23 @@ class ToolPage(Screen):
         btn_box.add_widget(term_btn)
         btn_box.add_widget(land_btn)
 
+        sepa = BoxLayout(size_hint = (1.0, 0.2))
+        line = Color(0,0,0,1)
+        sepa.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+
+        bot = BoxLayout(size_hint = (1.0, 0.2))
+        faq_btn = Button(text = "FAQs", on_press = self.faq)
+        set_btn = Button(text = "Settings", on_press = self.setf)
+        call_btn = Button(text = "Call centre", on_press = self.callf)
+        bot.add_widget(faq_btn)
+        bot.add_widget(set_btn)
+        bot.add_widget(call_btn)
+
 
         layout.add_widget(top_box)
         layout.add_widget(btn_box)
+        layout.add_widget(sepa)
+        layout.add_widget(bot)
 
         self.add_widget(layout)
 
@@ -158,6 +172,15 @@ class ToolPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
     def land(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def faq(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def setf(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def callf(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
 
