@@ -3,10 +3,12 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition, FadeTransition
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
+from kivy.graphics import Color, Line
 from check import check_and_install_modules as cim
 from pages import Start1Page, Start2Page, Start3Page, Start4Page
 
@@ -100,15 +102,64 @@ class MainPage(Screen):
 class ToolPage(Screen):
     def __init__(self,**kwargs):
         super(ToolPage,self).__init__(**kwargs)
-        button = Button(text = "Welcome to tools page\nOops, you are a bit early!\nWork under progress", on_press = self.start)
-        self.add_widget(button)
+        layout = BoxLayout(orientation = 'vertical')
+        top_box = BoxLayout(orientation = 'horizontal', size_hint = (1.0, 0.2))
+        back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.2, 1.0))
+        logo_image = Image(source = 'user_logo.png', size_hint = (0.3, 1.0))
+        user_name = Label(text="user_name")
+        mess_btn = Button(text = "message", on_press = self.mess, size_hint = (0.2, 1.0))
+        top_box.add_widget(back_btn)
+        top_box.add_widget(logo_image)
+        top_box.add_widget(user_name)
+        top_box.add_widget(mess_btn)
 
-    def start(self, instance):
+        btn_box = BoxLayout(orientation = "vertical", height = 300)
+        prof_btn = Button(text = "Profile", on_press = self.prof)
+        hist_btn = Button(text = "Search History", on_press = self.hist)
+        saved_btn = Button(text = "Saved", on_press = self.save)
+        sub_stn = Button(text = "Subscription", on_press = self.sub)
+        term_btn = Button(text = "Terms & Policies", on_press = self.term)
+        land_btn = Button(text = "Be a Landlord", on_press = self.land)
+        btn_box.add_widget(prof_btn)
+        btn_box.add_widget(hist_btn)
+        btn_box.add_widget(saved_btn)
+        btn_box.add_widget(sub_stn)
+        btn_box.add_widget(term_btn)
+        btn_box.add_widget(land_btn)
+
+
+        layout.add_widget(top_box)
+        layout.add_widget(btn_box)
+
+        self.add_widget(layout)
+
+
+    def back(self, instance):
         self.manager.transition = CardTransition(direction = "left", mode = "pop")
         self.manager.current = "mainpage"
 
-    def next(self,instance):
-        pass
+    def mess(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    
+    def prof(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def hist(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def save(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def sub(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def term(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+    def land(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
 
 class MessagePage(Screen):
     def __init__(self,**kwargs):
