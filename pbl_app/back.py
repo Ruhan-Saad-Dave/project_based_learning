@@ -5,3 +5,11 @@ Needs database(local and online) and server
 """
 
 #underconstruction
+
+def a():
+    print(1)
+    b()
+    def b():
+        print(2)
+
+a()
