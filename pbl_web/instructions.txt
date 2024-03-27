@@ -1,0 +1,13 @@
+This folder is made for the website part of the project.
+
+You need to make a website for the owner side for this project, owner must be able to do the following:
+- Login in to their account (non owner user should not get permission to get inside unless they have upgraded their account)
+- add hostel/ flat into their property list
+- add students into the hostel/flat along with (money paid, payment status, payment date, agreement end date)
+- update the student details when ever they pay fees
+- Remind the owner when it is the due date of some student to pay rent.
+
+Requirments:
+- Frontend (HTML, CSS, JavaScript) ~ For the owner to use
+- Framework (Django)~ Owner will input some details and on press of "submit" button, the framework needs to extract those information and give to backend, and receives new information given by backend and return the data to frontend.
+- backend (MongoDb, Express or Python) ~ Basically receive data from the framework and put on database, and based on the operation selected by Owner, do certain processing and give the data back to framework.
