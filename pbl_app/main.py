@@ -249,7 +249,6 @@ class MessagePage(Screen):
             self.grid.add_widget(btn)
         self.scroll.add_widget(self.grid)
 
-
 class ProfilePage(Screen):
     def __init__(self,**kwargs):
         super(ProfilePage,self).__init__(**kwargs)
@@ -330,7 +329,7 @@ class ProfilePage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
     def account(self, instance):
-        self.manager.transition = FadeTransition()
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
         self.manager.current = "loginpage"
     def edit_prof(self, instance):
         self.manager.transition = CardTransition(direction = "left", mode = "push")
@@ -407,10 +406,58 @@ class EditProfPage(Screen):
 class LoginPage(Screen):
     def __init__(self,**kwargs):
         super(LoginPage,self).__init__(**kwargs)
-        #add layouts
-    def next(self,instance):
-        pass
+        layout = BoxLayout(orientation = "vertical")
 
+        top = BoxLayout(size_hint_y = 0.15)
+        back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
+        logo = Image(source = "logo.png")
+        top.add_widget(back_btn)
+        top.add_widget(logo)
+        layout.add_widget(top)
+
+        mid = BoxLayout(orientation = "vertical")
+        email_box = BoxLayout()
+        email_label = Label(text = "Email", halign = "left", size_hint_x = 0.3)
+        email_text = TextInput(hint_text = "Enter email")
+        email_box.add_widget(email_label)
+        email_box.add_widget(email_text)
+        pass_box = BoxLayout()
+        pass_label = Label(text = "Password", halign = "left", size_hint_x = 0.3)
+        pass_text = TextInput(hint_text = "Enter password", password = True)
+        pass_box.add_widget(pass_label)
+        pass_box.add_widget(pass_text)
+        forgot_btn = Button(text = "Forgot Password?", on_press = self.forgot, size_hint_y = 0.4)
+        sepa1 = BoxLayout(size_hint_y = 0.2)
+        line = Color(1,0,0,1)
+        sepa1.canvas.add(Line(points = (0,0, mid.width, 1), color = line))
+        mid.add_widget(sepa1)
+        acc_box = BoxLayout(size_hint_y = 0.4)
+        log_in = Button(text = "Log In", on_press = self.log)
+        sign_in = Button(text = "Sign In", on_press = self.sign)
+        acc_box.add_widget(log_in)
+        acc_box.add_widget(sign_in)
+        mid.add_widget(email_box)
+        mid.add_widget(pass_box)
+        mid.add_widget(forgot_btn)
+        mid.add_widget(acc_box)
+        layout.add_widget(mid)
+
+        sepa2 = BoxLayout(size_hint_y = 0.35)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+        layout.add_widget(sepa2)
+
+        self.add_widget(layout)
+
+    def back(self,instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "profilepage"
+    def forgot(self, instance):
+        pass
+    def log(self, instance):
+        pass
+    def sign(self, instance):
+        pass
 
 class Blank(Screen):
     def __init__(self,**kwargs):
@@ -421,7 +468,7 @@ class Blank(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "mainpage"
 
-class MyApp(App):
+class ProjectApp(App):
     def build(self):
         screen_manager = ScreenManager()
 
@@ -442,4 +489,4 @@ class MyApp(App):
     
 if __name__ == "__main__":
     cim()
-    MyApp().run()
+    ProjectApp().run()
