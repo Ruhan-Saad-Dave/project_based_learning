@@ -115,13 +115,11 @@ class ToolPage(Screen):
 
         btn_box = BoxLayout(orientation = "vertical")
         prof_btn = Button(text = "Profile", on_press = self.prof)
-        hist_btn = Button(text = "Search History", on_press = self.hist)
         saved_btn = Button(text = "Saved", on_press = self.save)
         sub_stn = Button(text = "Subscription", on_press = self.sub)
         term_btn = Button(text = "Terms & Policies", on_press = self.term)
         land_btn = Button(text = "Be a Landlord", on_press = self.land)
         btn_box.add_widget(prof_btn)
-        btn_box.add_widget(hist_btn)
         btn_box.add_widget(saved_btn)
         btn_box.add_widget(sub_stn)
         btn_box.add_widget(term_btn)
@@ -158,10 +156,7 @@ class ToolPage(Screen):
     
     def prof(self,instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
-    def hist(self, instance):
-        self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "profilepage"
     def save(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
@@ -258,16 +253,164 @@ class MessagePage(Screen):
 class ProfilePage(Screen):
     def __init__(self,**kwargs):
         super(ProfilePage,self).__init__(**kwargs)
+        grid = BoxLayout(orientation = "vertical")
+        grid.bind(minimum_height = grid.setter('height'))
+
+        top = BoxLayout(size_hint_y = 0.15)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = Label(text = "Profile      ")
+        account_btn = Button(text = "Account", size_hint_x = 0.3, on_press = self.account)
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        top.add_widget(account_btn)
+        grid.add_widget(top)
+
+        top2 = BoxLayout(size_hint_y = 0.15)
+        logo = Image(source='logo.png', size_hint=(0.3, 1.0))
+        right_layout = BoxLayout(orientation='vertical')
+        username_label = Label(text='Username')
+        area_layout = BoxLayout(size_hint_y = 0.25)
+        area_label = Label(text='Area', size_hint=(0.7, 1.0))
+        edit_profile_button = Button(text='Edit Profile', size_hint=(0.3, 1.0), on_press = self.edit_prof)
+        area_layout.add_widget(area_label)
+        area_layout.add_widget(edit_profile_button)
+        right_layout.add_widget(username_label)
+        right_layout.add_widget(area_layout)
+        top2.add_widget(logo)
+        top2.add_widget(right_layout)
+        grid.add_widget(top2)
+        
+        sepa1 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa1.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa1)
+
+        top3 = BoxLayout(orientation = "vertical", size_hint_y = 0.2)
+        base = Label(text = "Basic Details:", size_hint_y = 0.3)
+        grid1 = GridLayout(cols = 2, y = 150)
+        gender = Label(text = "gender : male", font_size = 30)
+        age = Label(text = "age : 20", font_size = 30)
+        study = Label(text = "Years of study : FE", font_size = 30)
+        branch = Label(text = "Branch : CS", font_size = 30)
+        grid1.add_widget(gender)
+        grid1.add_widget(age)
+        grid1.add_widget(study)
+        grid1.add_widget(branch)
+        top3.add_widget(base)
+        top3.add_widget(grid1)
+        grid.add_widget(top3)
+
+        sepa2 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa2)
+
+        bot = BoxLayout(orientation = "vertical")
+        bot_top = BoxLayout(size_hint_y = 0.2)
+        pre_label = Label(text = "Preference:")
+        edit_pre_btn = Button(text = "edit", size_hint_x = 0.2, on_press = self.edit_pre)
+        bot_top.add_widget(pre_label)
+        bot_top.add_widget(edit_pre_btn)
+        bot.add_widget(bot_top)
+        bot_grid = GridLayout(cols = 4)
+        for i in range(14):
+            pre_box = BoxLayout(orientation = "vertical")
+            pre_logo = Image(source=f'pre{i+1}.png')
+            pre_pre_label = Label(text = f"{i+1}")
+            pre_box.add_widget(pre_logo)
+            pre_box.add_widget(pre_pre_label)
+            bot_grid.add_widget(pre_box)
+        bot.add_widget(bot_grid)
+        grid.add_widget(bot)
+
+        self.add_widget(grid)
+
+
+    def back(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+    def account(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "loginpage"
+    def edit_prof(self, instance):
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
+        self.manager.current = "editprofpage"
+    def edit_pre(self, instance):
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
+        self.manager.current = "blank"
+
+class EditProfPage(Screen):
+    def __init__(self,**kwargs):
+        super(EditProfPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label= Label(text = "Edit Profile")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
+
+        img_lay = BoxLayout(size_hint_y = 0.3)
+        img = Image(source = 'user.png', size = (100,100), size_hint = (None,None))
+        img_btn = Button(text = "change", size_hint = (None, None), size = (50,50), on_press = self.change_img)
+        img_lay.add_widget(img)
+        img_lay.add_widget(img_btn)
+        layout.add_widget(img_lay)
+
+        grid = GridLayout(cols = 2)
+        name_label = Label(text = "Name:", size_hint_x = 0.25)
+        name_text = TextInput(hint_text = "enter your name")
+        place_label = Label(text = "Place:", size_hint_x = 0.25)
+        place_text = TextInput(hint_text = "enter your place")
+        ph_label = Label(text = "Phone no:", size_hint_x = 0.25)
+        ph_text = TextInput(hint_text = "enter your phone number")
+        email_label = Label(text = "Email:", size_hint_x = 0.25)
+        email_text = TextInput(hint_text = "enter your email address")
+        gender_label = Label(text = "Gender:", size_hint_x = 0.25)
+        gender_text = TextInput(hint_text = "enter your gender")
+        age_label = Label(text = "Age:", size_hint_x = 0.25)
+        age_text = TextInput(hint_text = "enter your age")
+        study_label = Label(text = "Year of study:", size_hint_x = 0.25)
+        study_text = TextInput(hint_text = "enter your tear of study")
+        branch_label = Label(text = "Branch:", size_hint_x = 0.25)
+        branch_text = TextInput(hint_text = "enter your Branch")
+        grid.add_widget(name_label)
+        grid.add_widget(name_text)
+        grid.add_widget(place_label)
+        grid.add_widget(place_text)
+        grid.add_widget(ph_label)
+        grid.add_widget(ph_text)
+        grid.add_widget(email_label)
+        grid.add_widget(email_text)
+        grid.add_widget(gender_label)
+        grid.add_widget(gender_text)
+        grid.add_widget(age_label)
+        grid.add_widget(age_text)
+        grid.add_widget(study_label)
+        grid.add_widget(study_text)
+        grid.add_widget(branch_label)
+        grid.add_widget(branch_text)
+        layout.add_widget(grid)
+
+        save_btn = Button(text = "save", on_press = self.save, size_hint_y = 0.2)
+        layout.add_widget(save_btn)
+        self.add_widget(layout)
+
+    def back(self,instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "profilepage"
+    def save(self, instance):
+        pass
+    def change_img(self, instance):
+        pass
+
+class LoginPage(Screen):
+    def __init__(self,**kwargs):
+        super(LoginPage,self).__init__(**kwargs)
         #add layouts
     def next(self,instance):
         pass
 
-class EditProfPage(Screen):
-    def __init__(self,**kwargs):
-        super(EditProfPage,self).__init__(**kwargs)
-        #add layouts
-    def next(self,instance):
-        pass
 
 class Blank(Screen):
     def __init__(self,**kwargs):
@@ -281,16 +424,17 @@ class Blank(Screen):
 class MyApp(App):
     def build(self):
         screen_manager = ScreenManager()
-        
-        screen_manager.add_widget(Start1Page(name = "start1page"))
-        screen_manager.add_widget(Start2Page(name = "start2page"))
-        screen_manager.add_widget(Start3Page(name = "start3page"))
-        screen_manager.add_widget(Start4Page(name = "start4page"))
+
+        screen_manager.add_widget(Start1Page(name='start1page'))
+        screen_manager.add_widget(Start2Page(name='start2page'))
+        screen_manager.add_widget(Start3Page(name='start3page'))
+        screen_manager.add_widget(Start4Page(name='start4page'))
         screen_manager.add_widget(MainPage(name = "mainpage"))
         screen_manager.add_widget(Blank(name = "blank"))
         screen_manager.add_widget(ToolPage(name = "toolpage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
-        screen_manager.add_widget(ProfilePage(name = "profilepage")) 
+        screen_manager.add_widget(ProfilePage(name = "profilepage"))
+        screen_manager.add_widget(LoginPage(name = "loginpage")) 
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
         
 
