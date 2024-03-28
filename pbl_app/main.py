@@ -27,7 +27,7 @@ class MainPage(Screen):
         top1.add_widget(blank)
         top1.add_widget(logo_label)
 
-        self.hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func)
+        self.hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func, state = "down")
         self.flat_btn = ToggleButton(text = "Flat", on_press = self.flat_func)
         self.roommate_btn = ToggleButton(text = "Room Mate", on_press = self.roommate_func)
         top2.add_widget(self.hostel_btn)
@@ -42,6 +42,12 @@ class MainPage(Screen):
         self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
         self.grid = GridLayout(cols = 1, size_hint_y = None)
         self.grid.bind(minimum_height = self.grid.setter('height'))
+        self.buttons = []
+        for i in range(10):
+            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.buttons.append(btn)
+        self.scroll.add_widget(self.grid)
         
 
         out.add_widget(top1)
@@ -159,7 +165,7 @@ class ToolPage(Screen):
         self.manager.current = "profilepage"
     def save(self, instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "savedpage"
     def sub(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
@@ -459,6 +465,99 @@ class LoginPage(Screen):
     def sign(self, instance):
         pass
 
+class SavedPage(Screen):
+    def __init__(self, **kwargs):
+        super(SavedPage, self).__init__(**kwargs)
+        out = BoxLayout(orientation = "vertical")
+        top1 = BoxLayout(size_hint = (1.0, 0.1))
+        top2 = BoxLayout(size_hint = (1.0, 0.1))
+        top3 = BoxLayout(size_hint = (1.0, 0.1))
+
+        back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.3, 1.0))
+        blank = Label(text = "____", size_hint = (0.3, 1.0))
+        logo_label = Label(text = "Saved profiles")
+        top1.add_widget(back_btn)
+        top1.add_widget(logo_label)
+        top1.add_widget(blank)
+
+        self.hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func, state = "down")
+        self.flat_btn = ToggleButton(text = "Flat", on_press = self.flat_func)
+        self.roommate_btn = ToggleButton(text = "Room Mate", on_press = self.roommate_func)
+        top2.add_widget(self.hostel_btn)
+        top2.add_widget(self.flat_btn)
+        top2.add_widget(self.roommate_btn)
+
+        self.textinput = TextInput(hint_text = "search", multiline = False)
+        search_btn = Button(text = "search", on_press = self.search, size_hint = (0.1, 1.0))
+        top3.add_widget(self.textinput)
+        top3.add_widget(search_btn)
+
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        self.buttons = []
+        for i in range(10):
+            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.buttons.append(btn)
+        self.scroll.add_widget(self.grid)
+        
+
+        out.add_widget(top1)
+        out.add_widget(top2)
+        out.add_widget(top3)
+        out.add_widget(self.scroll)
+        self.add_widget(out)
+
+    def hostel_func(self, instance):
+        self.flat_btn.state = "normal"
+        self.roommate_btn.state = "normal"
+        self.grid.clear_widgets()
+        self.scroll.clear_widgets()
+        self.buttons = []
+        for i in range(10):
+            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.buttons.append(btn)
+        self.scroll.add_widget(self.grid)
+
+    def flat_func(self, instance):
+        self.hostel_btn.state = "normal"
+        self.roommate_btn.state = "normal"
+        self.grid.clear_widgets()
+        self.scroll.clear_widgets()
+        self.buttons = []
+        for i in range(10):
+            btn = Button(text = f"Flat{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.buttons.append(btn)
+        self.scroll.add_widget(self.grid)
+
+    def roommate_func(self, instance):
+        self.flat_btn.state = "normal"
+        self.hostel_btn.state = "normal"
+        self.grid.clear_widgets()
+        self.scroll.clear_widgets()
+        self.buttons = []
+        for i in range(10):
+            btn = Button(text = f"Roommate{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.buttons.append(btn)
+        self.scroll.add_widget(self.grid)
+
+    def search(self, instance):
+        area = self.textinput.text
+        for button in self.buttons:
+            button.text = f"{button.text.split()[0]} in {area}"
+    
+    def goto(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"       
+
+    def back(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -483,6 +582,7 @@ class ProjectApp(App):
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
         screen_manager.add_widget(LoginPage(name = "loginpage")) 
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
+        screen_manager.add_widget(SavedPage(name = "savedpage"))
         
 
         return screen_manager
@@ -490,4 +590,3 @@ class ProjectApp(App):
 if __name__ == "__main__":
     cim()
     ProjectApp().run()
-    #hello world 
