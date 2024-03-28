@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen, SlideTransition
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.image import Image
 
 class Start1Page(Screen):
     def __init__(self,**kwargs):
@@ -136,3 +137,26 @@ class Start4Page(Screen):
         self.manager.transition = SlideTransition(direction = "right")
         self.manager.current = "start3page"
 
+class MessageButton(BoxLayout):
+    # Custom button class for messages with user logo, name, and message preview
+    user_logo = ''
+    user_name = ''
+    message_text = ''
+
+    def __init__(self, user_logo, user_name, message_text, **kwargs):
+        super(MessageButton, self).__init__(**kwargs)
+        self.user_logo = user_logo
+        self.user_name = user_name
+        self.message_text = message_text
+
+        # Layout for message details
+        inner_box = BoxLayout(orientation='horizontal')
+        logo_image = Image(source=self.user_logo)  # Replace with your logo image path
+        message_box = BoxLayout(orientation='vertical')
+        name_label = Label(text=self.user_name, text_size=(self.width * 0.7, None))
+        message_label = Label(text=f'{self.message_text[:20]}...', text_size=(self.width * 0.7, None))
+        message_box.add_widget(name_label)
+        message_box.add_widget(message_label)
+        inner_box.add_widget(logo_image)
+        inner_box.add_widget(message_box)
+        self.add_widget(inner_box)

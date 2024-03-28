@@ -10,7 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import Color, Line
 from check import check_and_install_modules as cim
-from pages import Start1Page, Start2Page, Start3Page, Start4Page
+from pages import *
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
@@ -154,7 +154,7 @@ class ToolPage(Screen):
 
     def mess(self,instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "messagepage"
     
     def prof(self,instance):
         self.manager.transition = FadeTransition()
@@ -187,9 +187,73 @@ class ToolPage(Screen):
 class MessagePage(Screen):
     def __init__(self,**kwargs):
         super(MessagePage,self).__init__(**kwargs)
-        #add layouts
-    def next(self,instance):
-        pass
+        layout = BoxLayout(orientation='vertical')
+
+        top_box = BoxLayout(orientation='horizontal', size_hint_y=0.15)
+        back_button = Button(text='Back',size_hint_x = 0.2,  on_press=self.back)
+        self.textinput = TextInput(hint_text='Search Messages')
+        search_button = Button(text='Search',size_hint_x = 0.2, on_press=self.search)
+        top_box.add_widget(back_button)
+        top_box.add_widget(self.textinput)
+        top_box.add_widget(search_button)
+
+        toggle_box = BoxLayout(orientation='horizontal', size_hint_y=0.25)
+        self.focused_button = ToggleButton(text='Focused', on_press=self.focus, state = "down")
+        self.other_button = ToggleButton(text='Other', on_press=self.other)
+        toggle_box.add_widget(self.focused_button)
+        toggle_box.add_widget(self.other_button)
+
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        for i in range(10):
+            btn = Button(text = f"Focused message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+        self.scroll.add_widget(self.grid)
+
+        write = Button(text = "Write message", size_hint_y = 0.2, on_press = self.goto)
+
+        layout.add_widget(top_box)
+        layout.add_widget(toggle_box)
+        layout.add_widget(self.scroll)
+        layout.add_widget(write)
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+    def search(self, instance):
+        area = self.textinput.text
+        if area:
+            self.grid.clear_widgets()
+            self.scroll.clear_widgets()
+            btn = Button(text = f"{area}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+            self.scroll.add_widget(self.grid)
+
+    def goto(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "blank"
+
+
+    def focus(self, instance):
+        self.other_button.state = "normal"
+        self.grid.clear_widgets()
+        self.scroll.clear_widgets()
+        for i in range(10):
+            btn = Button(text = f"Focused message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+        self.scroll.add_widget(self.grid)
+    def other(self, instance):
+        self.focused_button.state = "normal"
+        self.grid.clear_widgets()
+        self.scroll.clear_widgets()
+        for i in range(10):
+            btn = Button(text = f"Other message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
+            self.grid.add_widget(btn)
+        self.scroll.add_widget(self.grid)
+
 
 class ProfilePage(Screen):
     def __init__(self,**kwargs):
