@@ -21,8 +21,8 @@ class MainPage(Screen):
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
         tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.3, 1.0))
-        blank = Label(text = "____", size_hint = (0.3, 1.0))
-        logo_label = Label(text = "#place for logo")
+        blank = BLabel(text = "____", size_hint = (0.3, 1.0))
+        logo_label = BLabel(text = "#place for logo")
         top1.add_widget(tools_btn)
         top1.add_widget(blank)
         top1.add_widget(logo_label)
@@ -112,7 +112,7 @@ class ToolPage(Screen):
         top_box = BoxLayout(orientation = 'horizontal', size_hint = (1.0, 0.2))
         back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.2, 1.0))
         logo_image = Image(source = 'user_logo.png', size_hint = (0.3, 1.0))
-        user_name = Label(text="user_name")
+        user_name = BLabel(text="user_name")
         mess_btn = Button(text = "message", on_press = self.mess, size_hint = (0.2, 1.0))
         top_box.add_widget(back_btn)
         top_box.add_widget(logo_image)
@@ -263,7 +263,7 @@ class ProfilePage(Screen):
 
         top = BoxLayout(size_hint_y = 0.15)
         back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
-        label = Label(text = "Profile      ")
+        label = BLabel(text = "Profile      ")
         account_btn = Button(text = "Account", size_hint_x = 0.3, on_press = self.account)
         top.add_widget(back_btn)
         top.add_widget(label)
@@ -273,9 +273,9 @@ class ProfilePage(Screen):
         top2 = BoxLayout(size_hint_y = 0.15)
         logo = Image(source='logo.png', size_hint=(0.3, 1.0))
         right_layout = BoxLayout(orientation='vertical')
-        username_label = Label(text='Username')
+        username_label = BLabel(text='Username')
         area_layout = BoxLayout(size_hint_y = 0.25)
-        area_label = Label(text='Area', size_hint=(0.7, 1.0))
+        area_label = BLabel(text='Area', size_hint=(0.7, 1.0))
         edit_profile_button = Button(text='Edit Profile', size_hint=(0.3, 1.0), on_press = self.edit_prof)
         area_layout.add_widget(area_label)
         area_layout.add_widget(edit_profile_button)
@@ -291,12 +291,12 @@ class ProfilePage(Screen):
         grid.add_widget(sepa1)
 
         top3 = BoxLayout(orientation = "vertical", size_hint_y = 0.2)
-        base = Label(text = "Basic Details:", size_hint_y = 0.3)
+        base = BLabel(text = "Basic Details:", size_hint_y = 0.3)
         grid1 = GridLayout(cols = 2, y = 150)
-        gender = Label(text = "gender : male", font_size = 30)
-        age = Label(text = "age : 20", font_size = 30)
-        study = Label(text = "Years of study : FE", font_size = 30)
-        branch = Label(text = "Branch : CS", font_size = 30)
+        gender = BLabel(text = "gender : male", font_size = 30)
+        age = BLabel(text = "age : 20", font_size = 30)
+        study = BLabel(text = "Years of study : FE", font_size = 30)
+        branch = BLabel(text = "Branch : CS", font_size = 30)
         grid1.add_widget(gender)
         grid1.add_widget(age)
         grid1.add_widget(study)
@@ -312,7 +312,7 @@ class ProfilePage(Screen):
 
         bot = BoxLayout(orientation = "vertical")
         bot_top = BoxLayout(size_hint_y = 0.2)
-        pre_label = Label(text = "Preference:")
+        pre_label = BLabel(text = "Preference:")
         edit_pre_btn = Button(text = "edit", size_hint_x = 0.2, on_press = self.edit_pre)
         bot_top.add_widget(pre_label)
         bot_top.add_widget(edit_pre_btn)
@@ -321,7 +321,7 @@ class ProfilePage(Screen):
         for i in range(14):
             pre_box = BoxLayout(orientation = "vertical")
             pre_logo = Image(source=f'pre{i+1}.png')
-            pre_pre_label = Label(text = f"{i+1}")
+            pre_pre_label = BLabel(text = f"{i+1}")
             pre_box.add_widget(pre_logo)
             pre_box.add_widget(pre_pre_label)
             bot_grid.add_widget(pre_box)
@@ -350,7 +350,7 @@ class EditProfPage(Screen):
         layout = BoxLayout(orientation = "vertical")
         top = BoxLayout(size_hint_y = 0.2)
         back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
-        label= Label(text = "Edit Profile")
+        label= BLabel(text = "Edit Profile")
         top.add_widget(back_btn)
         top.add_widget(label)
         layout.add_widget(top)
@@ -363,21 +363,21 @@ class EditProfPage(Screen):
         layout.add_widget(img_lay)
 
         grid = GridLayout(cols = 2)
-        name_label = Label(text = "Name:", size_hint_x = 0.25)
+        name_label = BLabel(text = "Name:", size_hint_x = 0.25)
         name_text = TextInput(hint_text = "enter your name")
-        place_label = Label(text = "Place:", size_hint_x = 0.25)
+        place_label = BLabel(text = "Place:", size_hint_x = 0.25)
         place_text = TextInput(hint_text = "enter your place")
-        ph_label = Label(text = "Phone no:", size_hint_x = 0.25)
+        ph_label = BLabel(text = "Phone no:", size_hint_x = 0.25)
         ph_text = TextInput(hint_text = "enter your phone number")
-        email_label = Label(text = "Email:", size_hint_x = 0.25)
+        email_label = BLabel(text = "Email:", size_hint_x = 0.25)
         email_text = TextInput(hint_text = "enter your email address")
-        gender_label = Label(text = "Gender:", size_hint_x = 0.25)
+        gender_label = BLabel(text = "Gender:", size_hint_x = 0.25)
         gender_text = TextInput(hint_text = "enter your gender")
-        age_label = Label(text = "Age:", size_hint_x = 0.25)
+        age_label = BLabel(text = "Age:", size_hint_x = 0.25)
         age_text = TextInput(hint_text = "enter your age")
-        study_label = Label(text = "Year of study:", size_hint_x = 0.25)
+        study_label = BLabel(text = "Year of study:", size_hint_x = 0.25)
         study_text = TextInput(hint_text = "enter your tear of study")
-        branch_label = Label(text = "Branch:", size_hint_x = 0.25)
+        branch_label = BLabel(text = "Branch:", size_hint_x = 0.25)
         branch_text = TextInput(hint_text = "enter your Branch")
         grid.add_widget(name_label)
         grid.add_widget(name_text)
@@ -416,25 +416,25 @@ class LoginPage(Screen):
 
         top = BoxLayout(size_hint_y = 0.15)
         back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
-        logo = Image(source = "logo.png")
+        log_label = BLabel(text = "Account")
         top.add_widget(back_btn)
-        top.add_widget(logo)
+        top.add_widget(log_label)
         layout.add_widget(top)
 
         mid = BoxLayout(orientation = "vertical")
         email_box = BoxLayout()
-        email_label = Label(text = "Email", halign = "left", size_hint_x = 0.3)
+        email_label = BLabel(text = "Email", halign = "left", size_hint_x = 0.3)
         email_text = TextInput(hint_text = "Enter email")
         email_box.add_widget(email_label)
         email_box.add_widget(email_text)
         pass_box = BoxLayout()
-        pass_label = Label(text = "Password", halign = "left", size_hint_x = 0.3)
+        pass_label = BLabel(text = "Password", halign = "left", size_hint_x = 0.3)
         pass_text = TextInput(hint_text = "Enter password", password = True)
         pass_box.add_widget(pass_label)
         pass_box.add_widget(pass_text)
         forgot_btn = Button(text = "Forgot Password?", on_press = self.forgot, size_hint_y = 0.4)
         sepa1 = BoxLayout(size_hint_y = 0.2)
-        line = Color(1,0,0,1)
+        line = Color(0,0,0,1)
         sepa1.canvas.add(Line(points = (0,0, mid.width, 1), color = line))
         mid.add_widget(sepa1)
         acc_box = BoxLayout(size_hint_y = 0.4)
@@ -459,11 +459,13 @@ class LoginPage(Screen):
         self.manager.transition = CardTransition(direction = "right", mode = "pop")
         self.manager.current = "profilepage"
     def forgot(self, instance):
-        pass
+        self.manager.transition =  CardTransition(direction = "left", mode = "push")
+        self.manager.current = "forgotpage"
     def log(self, instance):
         pass
     def sign(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
+        self.manager.current = "signpage"
 
 class SavedPage(Screen):
     def __init__(self, **kwargs):
@@ -474,8 +476,8 @@ class SavedPage(Screen):
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
         back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.3, 1.0))
-        blank = Label(text = "____", size_hint = (0.3, 1.0))
-        logo_label = Label(text = "Saved profiles")
+        blank = BLabel(text = "____", size_hint = (0.3, 1.0))
+        logo_label = BLabel(text = "Saved profiles")
         top1.add_widget(back_btn)
         top1.add_widget(logo_label)
         top1.add_widget(blank)
@@ -558,6 +560,97 @@ class SavedPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
 
+class ForgotPage(Screen):
+    def __init__(self, **kwargs):
+        super(ForgotPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        logo_img = Image(source = "logo.png")
+        top.add_widget(back_btn)
+        top.add_widget(logo_img)
+        layout.add_widget(top)
+
+        otp_label = BLabel(text = "OTP: (send on email)", size_hint_y = 0.15)
+        otp_text = TextInput(hint_text = "Enter OTP", size_hint_y = 0.15)
+        otp_btn = Button(text = "Resend OTP", on_press = self.resend, size_hint_y = 0.15)
+        newpass_label = BLabel(text = "New Password", size_hint_y = 0.15)
+        newpass_text = TextInput(hint_text = "Enter new password", size_hint_y = 0.15)
+        repass_label = BLabel(text = "Re-enter Password", size_hint_y = 0.15)
+        repass_text = TextInput(hint_text = "Enter new password again", size_hint_y = 0.15)
+        update_btn = Button(text = "update", on_press = self.update, size_hint_y = 0.15)
+        sepa2 = BoxLayout(size_hint_y = 0.15)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+        
+        layout.add_widget(otp_label)
+        layout.add_widget(otp_text)
+        layout.add_widget(otp_btn)
+        layout.add_widget(newpass_label)
+        layout.add_widget(newpass_text)
+        layout.add_widget(repass_label)
+        layout.add_widget(repass_text)
+        layout.add_widget(sepa2)
+        layout.add_widget(update_btn)
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "loginpage"
+    def resend(self, instance):
+        pass
+    def update(self, instance):
+        pass
+
+class SignPage(Screen):
+    def __init__(self, **kwargs):
+        super(SignPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
+        sign_label = BLabel(text = "Sign in")
+        top.add_widget(back_btn)
+        top.add_widget(sign_label)
+        layout.add_widget(top)
+
+        user_label = BLabel(text = "User Name:", size_hint_y = 0.12)
+        user_text = TextInput(hint_text = "Enter user name", size_hint_y = 0.12)
+        email_label = BLabel(text = "Email:", size_hint_y = 0.12)
+        email_text = TextInput(hint_text = "Enter email", size_hint_y = 0.12)
+        ph_label = BLabel(text = "Phone number:", size_hint_y = 0.12)
+        ph_text = TextInput(hint_text = "Enter phone number", size_hint_y = 0.12)
+        pass_label = BLabel(text = "Password:", size_hint_y = 0.12)
+        pass_text = TextInput(hint_text = "Enter password", size_hint_y = 0.12)
+        repass_label = BLabel(text = "Re-enter Password:", size_hint_y = 0.12)
+        repass_text = TextInput(hint_text = "Enter password again", size_hint_y = 0.12)
+        create_btn = Button(text = "Create account", size_hint_y = 0.2, on_press = self.create)
+        sepa2 = BoxLayout(size_hint_y = 0.15)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+        layout.add_widget(user_label)
+        layout.add_widget(user_text)
+        layout.add_widget(email_label)
+        layout.add_widget(email_text)
+        layout.add_widget(ph_label)
+        layout.add_widget(ph_text)
+        layout.add_widget(pass_label)
+        layout.add_widget(pass_text)
+        layout.add_widget(repass_label)
+        layout.add_widget(repass_text)
+        layout.add_widget(sepa2)
+        layout.add_widget(create_btn)
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "loginpage"
+    def create(self, instance):
+        pass
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -580,7 +673,9 @@ class ProjectApp(App):
         screen_manager.add_widget(ToolPage(name = "toolpage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
-        screen_manager.add_widget(LoginPage(name = "loginpage")) 
+        screen_manager.add_widget(LoginPage(name = "loginpage"))
+        screen_manager.add_widget(ForgotPage(name = "forgotpage"))
+        screen_manager.add_widget(SignPage(name = "signpage")) 
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
         screen_manager.add_widget(SavedPage(name = "savedpage"))
         
