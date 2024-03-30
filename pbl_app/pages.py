@@ -9,7 +9,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition, FadeT
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import Color, Rectangle, RoundedRectangle
 from kivy.core.window import Window
 
 class Start1Page(Screen):

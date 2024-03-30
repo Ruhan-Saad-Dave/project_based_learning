@@ -11,6 +11,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import Color, Line
 from check import check_and_install_modules as cim
 from pages import *
+import webbrowser
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
@@ -173,8 +174,11 @@ class ToolPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
     def land(self, instance):
-        self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        # Define the website link
+        website_link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        
+        # Open the website link in the default web browser
+        webbrowser.open(website_link)
     def faq(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
@@ -330,7 +334,6 @@ class ProfilePage(Screen):
 
         self.add_widget(grid)
 
-
     def back(self,instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
@@ -342,7 +345,7 @@ class ProfilePage(Screen):
         self.manager.current = "editprofpage"
     def edit_pre(self, instance):
         self.manager.transition = CardTransition(direction = "left", mode = "push")
-        self.manager.current = "blank"
+        self.manager.current = "editprefpage"
 
 class EditProfPage(Screen):
     def __init__(self,**kwargs):
@@ -651,6 +654,43 @@ class SignPage(Screen):
     def create(self, instance):
         pass
 
+class EditPrefPage(Screen):
+    def __init__(self, **kwargs):
+        super(EditPrefPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
+        edit_label = BLabel(text = "Edit Preference")
+        top.add_widget(back_btn)
+        top.add_widget(edit_label)
+        layout.add_widget(top)
+
+        grid = GridLayout(cols = 4)
+        for i in range(21):
+            pre_box = BoxLayout(orientation = "vertical")
+            pre_logo = Image(source=f'pre{i+1}.png')
+            pre_btn = ToggleButton(text = f"{i+1}", size_hint_y = 0.4)
+            pre_box.add_widget(pre_logo)
+            pre_box.add_widget(pre_btn)
+            grid.add_widget(pre_box)
+        layout.add_widget(grid)
+
+        sepa2 = BoxLayout(size_hint_y = 0.05)
+        line = Color(0,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+        layout.add_widget(sepa2)
+        save_btn = Button(text = "Save", on_press = self.save, size_hint_y = 0.2)
+        layout.add_widget(save_btn)
+
+        self.add_widget(layout)
+
+    def back(self,instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "profilepage"
+    def save(self, instance):
+        pass
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -677,6 +717,7 @@ class ProjectApp(App):
         screen_manager.add_widget(ForgotPage(name = "forgotpage"))
         screen_manager.add_widget(SignPage(name = "signpage")) 
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
+        screen_manager.add_widget(EditPrefPage(name = "editprefpage"))
         screen_manager.add_widget(SavedPage(name = "savedpage"))
         
 
