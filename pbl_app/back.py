@@ -13,4 +13,17 @@ Functions required:
 Make sure to leave comments to explain code.
 """
 
-#underconstruction
+#Create a function that takes in type(hostel/flat/roommate) and area, and return whatever details the database gives. 
+#This function will be used to display all the relevant hostel/flat/roommate according to the user choice. if no area is mentioned, show all.
+
+#Create a function that takes in user name, place, phone no, email, gender, age, year of study, branch. and save these on the database. this is used in edit profile section.
+
+#Create a function that takes in a list of preferences of user(studious, nigth owl, gamer etc), and return all the roommates who has ATLEAST 3 similarities
+
+#create a function that takes in email and password to check if such user exists. this will be used in login section.
+
+#Create a function that takes in email and new pasword to change the password. otp and all will be taken care by front end.
+
+#Create a funtion that takes in username, email, phone number, password. and save in database. this is used to create a new account.
+
+#More functions to create are coming soon.
