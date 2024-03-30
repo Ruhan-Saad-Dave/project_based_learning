@@ -139,11 +139,8 @@ class ToolPage(Screen):
         bot = BoxLayout(size_hint = (1.0, 0.2))
         faq_btn = Button(text = "FAQs", on_press = self.faq)
         set_btn = Button(text = "Settings", on_press = self.setf)
-        call_btn = Button(text = "Call centre", on_press = self.callf)
         bot.add_widget(faq_btn)
         bot.add_widget(set_btn)
-        bot.add_widget(call_btn)
-
 
         layout.add_widget(top_box)
         layout.add_widget(btn_box)
@@ -151,7 +148,6 @@ class ToolPage(Screen):
         layout.add_widget(bot)
 
         self.add_widget(layout)
-
 
     def back(self, instance):
         self.manager.transition = CardTransition(direction = "left", mode = "pop")
@@ -181,7 +177,7 @@ class ToolPage(Screen):
         webbrowser.open(website_link)
     def faq(self, instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "faqpage"
     def setf(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
@@ -691,6 +687,38 @@ class EditPrefPage(Screen):
     def save(self, instance):
         pass
 
+class FAQPage(Screen):
+    def __init__(self, **kwargs):
+        super(FAQPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        faq_label = BLabel(text = "FAQs")
+        top.add_widget(back_btn)
+        top.add_widget(faq_label)
+        layout.add_widget(top)
+
+        bot = BoxLayout(orientation = "vertical")
+        prob_label = BLabel(text = "Problem Statement:")
+        prob_text = TextInput(text = "A solution for college students\nto find hostel/flat/roommate", multiline = True, readonly = True)
+        team_label = BLabel(text = "Team Members:")
+        team_text = TextInput(text = "- Ruhan Saad Dave\n- Yash Sanjay Chavan\n- Prem Gautam Gavhane\n- Ayush\n- Mayur Abhay Sadguru\nAtul Govind Sangale", multiline = True, readonly = True)
+        tool_label = BLabel(text = "Tools used in building this app:")
+        tool_text = TextInput(text = "Python\nKivy\npymongo\nimportlib\nsubprocess", multiline = True, readonly = True)
+        bot.add_widget(prob_label)
+        bot.add_widget(prob_text)
+        bot.add_widget(team_label)
+        bot.add_widget(team_text)
+        bot.add_widget(tool_label)
+        bot.add_widget(tool_text)
+        layout.add_widget(bot)
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -719,6 +747,7 @@ class ProjectApp(App):
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
         screen_manager.add_widget(EditPrefPage(name = "editprefpage"))
         screen_manager.add_widget(SavedPage(name = "savedpage"))
+        screen_manager.add_widget(FAQPage(name = "faqpage"))
         
 
         return screen_manager
