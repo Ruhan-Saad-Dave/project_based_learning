@@ -168,7 +168,7 @@ class ToolPage(Screen):
         self.manager.current = "upgradepage"
     def term(self, instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "termspage"
     def land(self, instance):
         # Define the website link
         website_link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -797,6 +797,81 @@ class UpgradePage(Screen):
     def sub(self, instance):
         pass
 
+class TermsPage(Screen):
+    def __init__(self, **kwargs):
+        super(TermsPage, self).__init__(**kwargs)
+
+        terms_text = """
+        Terms and Conditions
+
+        Welcome to [Your Platform Name]! These Terms and Conditions govern your use of our platform, including all features, services, and content offered through the platform.
+
+        1. Acceptance of Terms
+
+        By accessing or using our platform, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not use our platform.
+
+        2. Description of Service
+
+        [Your Platform Name] provides an online platform for students to search for hostels, flats, or roommates in their desired area. Users can create profiles, list properties, search for accommodations, and connect with potential roommates.
+
+        3. User Responsibilities
+
+        - Users must provide accurate and up-to-date information when creating profiles or listings.
+        - Users are responsible for maintaining the confidentiality of their account credentials and for all activities that occur under their account.
+        - Users must adhere to our community guidelines and refrain from engaging in any form of harassment, discrimination, or illegal activity on the platform.
+
+        4. Data Privacy
+
+        We collect and process user data in accordance with our Privacy Policy. By using our platform, you consent to the collection, storage, and use of your personal information as described in the Privacy Policy.
+
+        5. Intellectual Property
+
+        All content and materials provided on the platform, including text, images, logos, and trademarks, are owned or licensed by [Your Company Name]. Users retain ownership rights to their own content uploaded or shared on the platform.
+
+        6. Liability
+
+        While we strive to provide accurate and reliable information, we do not guarantee the availability, accuracy, or completeness of content on the platform. We are not liable for any damages or losses arising from the use of our platform.
+
+        7. Termination
+
+        We reserve the right to suspend or terminate user accounts that violate these Terms and Conditions or our community guidelines. Users may also terminate their accounts at any time by contacting us.
+
+        8. Dispute Resolution
+
+        Any disputes arising from the use of our platform shall be resolved through arbitration or mediation, with the laws of [Your Jurisdiction] governing the interpretation of these Terms and Conditions.
+
+        9. Changes to Terms
+
+        We may update or modify these Terms and Conditions from time to time without prior notice. It is your responsibility to review these terms periodically for any changes.
+
+        10. Contact Information
+
+        If you have any questions or concerns about these Terms and Conditions, please contact us at [Your Contact Email].
+        """
+
+        terms_text_with_newlines = "\n".join([terms_text[i:i+30] for i in range(0, len(terms_text), 30)])
+
+        layout = BoxLayout(orientation='vertical', padding=20)
+        scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        content = GridLayout(cols = 1, spacing=10, size_hint_y=None)
+        content.bind(minimum_height=content.setter('height'))
+
+        terms_label = Label(text=terms_text_with_newlines, size_hint_y=None, height=scroll.height)
+        content.add_widget(terms_label)
+
+        scroll.add_widget(content)
+        layout.add_widget(scroll)
+
+        agree_button = Button(text="I Agree", size_hint=(None, None), size=(200, 50))
+        agree_button.bind(on_press=self.agree_button_pressed)
+        layout.add_widget(agree_button)
+
+        self.add_widget(layout)
+
+    def agree_button_pressed(self, instance):
+        self.manager.current = "mainpage"  # Change 'mainpage' to the appropriate screen name
+
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -827,6 +902,7 @@ class ProjectApp(App):
         screen_manager.add_widget(SavedPage(name = "savedpage"))
         screen_manager.add_widget(UpgradePage(name = "upgradepage"))
         screen_manager.add_widget(FAQPage(name = "faqpage"))
+        screen_manager.add_widget(TermsPage(name = "termspage"))
         
 
         return screen_manager
