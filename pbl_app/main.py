@@ -165,7 +165,7 @@ class ToolPage(Screen):
         self.manager.current = "savedpage"
     def upgrade(self, instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "upgradepage"
     def term(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
@@ -719,6 +719,84 @@ class FAQPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
 
+class UpgradePage(Screen):
+    def __init__(self, **kwargs):
+        super(UpgradePage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Upgrade")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
+
+        call_box = BoxLayout()
+        call_label = BLabel(text = "Calls left:")
+        call_value_label = BLabel(text = " ")
+        call_box.add_widget(call_label)
+        call_box.add_widget(call_value_label)
+        layout.add_widget(call_box)
+
+        message_box = BoxLayout()
+        message_label = BLabel(text = "Messages left:")
+        message_value_label = BLabel(text = " ")
+        message_box.add_widget(message_label)
+        message_box.add_widget(message_value_label)
+        layout.add_widget(message_box)
+
+        sub_box = BoxLayout()
+        sub_label = BLabel(text = "Subscriptin end date:")
+        sub_value_label = BLabel(text = " ")
+        sub_box.add_widget(sub_label)
+        sub_box.add_widget(sub_value_label)
+        layout.add_widget(sub_box)
+
+        purchase_label = RLabel(text = "Purchase:")
+        layout.add_widget(purchase_label)
+
+        call_option = BoxLayout()
+        for i in range(4):
+            in_call_box = BoxLayout(orientation = "vertical")
+            in_call_label = BLabel(text = f"{i+1} call", size_hint_y = 0.65)
+            in_call_btn = Button(text = f"Rs. {(i+1)*10}", on_press = self.call)
+            in_call_box.add_widget(in_call_label)
+            in_call_box.add_widget(in_call_btn)
+            call_option.add_widget(in_call_box)
+        layout.add_widget(call_option)
+
+        message_option = BoxLayout()
+        for i in range(4):
+            in_message_box = BoxLayout(orientation = "vertical")
+            in_message_label = BLabel(text = f"{(i+1)*10} message", size_hint_y = 0.65)
+            in_message_btn = Button(text = f"Rs. {(i+1)*10}", on_press = self.message)
+            in_message_box.add_widget(in_message_label)
+            in_message_box.add_widget(in_message_btn)
+            message_option.add_widget(in_message_box)
+        layout.add_widget(message_option)
+
+        sub_option = BoxLayout()
+        for i in range(4):
+            in_sub_box = BoxLayout(orientation = "vertical")
+            in_sub_label = BLabel(text = f"{i+1} month subscription", size_hint_y = 0.65)
+            in_sub_btn = Button(text = f"Rs. {(i+1)*300}", on_press = self.sub)
+            in_sub_box.add_widget(in_sub_label)
+            in_sub_box.add_widget(in_sub_btn)
+            sub_option.add_widget(in_sub_box)
+        layout.add_widget(sub_option)
+
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+    def call(self, instance):
+        pass
+    def message(self, instance):
+        pass
+    def sub(self, instance):
+        pass
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -747,6 +825,7 @@ class ProjectApp(App):
         screen_manager.add_widget(EditProfPage(name = "editprofpage"))
         screen_manager.add_widget(EditPrefPage(name = "editprefpage"))
         screen_manager.add_widget(SavedPage(name = "savedpage"))
+        screen_manager.add_widget(UpgradePage(name = "upgradepage"))
         screen_manager.add_widget(FAQPage(name = "faqpage"))
         
 

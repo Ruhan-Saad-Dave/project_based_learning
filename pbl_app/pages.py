@@ -178,5 +178,5 @@ class BLabel(Label):
             # Set the color to red
             Color(0, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
             # Draw a rectangle behind the label
-            Rectangle(pos=self.pos, size=self.size)
+            Rectangle(pos=self.pos, size=self.size, width=1)
 
