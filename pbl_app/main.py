@@ -123,12 +123,12 @@ class ToolPage(Screen):
         btn_box = BoxLayout(orientation = "vertical")
         prof_btn = Button(text = "Profile", on_press = self.prof)
         saved_btn = Button(text = "Saved", on_press = self.save)
-        sub_stn = Button(text = "Subscription", on_press = self.sub)
+        upgrade_btn = Button(text = "Upgrades", on_press = self.upgrade)
         term_btn = Button(text = "Terms & Policies", on_press = self.term)
         land_btn = Button(text = "Be a Landlord", on_press = self.land)
         btn_box.add_widget(prof_btn)
         btn_box.add_widget(saved_btn)
-        btn_box.add_widget(sub_stn)
+        btn_box.add_widget(upgrade_btn)
         btn_box.add_widget(term_btn)
         btn_box.add_widget(land_btn)
 
@@ -163,7 +163,7 @@ class ToolPage(Screen):
     def save(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "savedpage"
-    def sub(self, instance):
+    def upgrade(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
     def term(self, instance):
