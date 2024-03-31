@@ -8,10 +8,14 @@ from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition, FadeTr
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
+from kivy.core.window import Window
+from kivy.uix.slider import Slider
 from kivy.graphics import Color, Line
 from check import check_and_install_modules as cim
 from pages import *
 import webbrowser
+import random
+
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
@@ -45,11 +49,30 @@ class MainPage(Screen):
         self.grid.bind(minimum_height = self.grid.setter('height'))
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Hostel {htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
-        
+
 
         out.add_widget(top1)
         out.add_widget(top2)
@@ -64,10 +87,28 @@ class MainPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size = (500, 1000))
+            btn_img = Image(source = f"btn{i+1}")
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Hostel {htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
+
 
     def flat_func(self, instance):
         self.hostel_btn.state = "normal"
@@ -76,10 +117,28 @@ class MainPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Flat{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            ftext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size = (500, 1000))
+            btn_img = Image(source = f"btn{i+1}")
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            flat_name = BLabel(text = f"Flat {ftext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 100}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            in_btn_layout.add_widget(flat_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goflat)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
+
 
     def roommate_func(self, instance):
         self.flat_btn.state = "normal"
@@ -88,16 +147,41 @@ class MainPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Roommate{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Room", "Roommate"])
+            btn_layout = BoxLayout(size = (500, 1000))
+            btn_img = Image(source = f"btn{i+1}")
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"{htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Searching for: {ttext}")
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goroom)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
+
+
+
+    def gohost(self, instance):
+        pass
+    def goflat(self, instance):
+        pass
+    def goroom(self, instance):
+        pass
 
     def search(self, instance):
         area = self.textinput.text
         for button in self.buttons:
-            button.text = f"{button.text.split()[0]} in {area}"
-    
+            button.text = f"Area :{self.textinput.text}"
     def goto(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"       
@@ -180,10 +264,7 @@ class ToolPage(Screen):
         self.manager.current = "faqpage"
     def setf(self, instance):
         self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
-    def callf(self, instance):
-        self.manager.transition = FadeTransition()
-        self.manager.current = "blank"
+        self.manager.current = "settingspage"
 
 class MessagePage(Screen):
     def __init__(self,**kwargs):
@@ -208,9 +289,21 @@ class MessagePage(Screen):
         self.grid = GridLayout(cols = 1, size_hint_y = None)
         self.grid.bind(minimum_height = self.grid.setter('height'))
         for i in range(10):
-            btn = Button(text = f"Focused message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
+            htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Mayur", "Ayush"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            user_name = BLabel(text = f"{htext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(user_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gomess)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
         self.scroll.add_widget(self.grid)
+
 
         write = Button(text = "Write message", size_hint_y = 0.2, on_press = self.goto)
 
@@ -229,30 +322,63 @@ class MessagePage(Screen):
         if area:
             self.grid.clear_widgets()
             self.scroll.clear_widgets()
-            btn = Button(text = f"{area}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            user_name = BLabel(text = f"{area}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(user_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gomess)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
             self.scroll.add_widget(self.grid)
 
     def goto(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
-
+    def gomess(self, instance):
+        pass
 
     def focus(self, instance):
         self.other_button.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
-        for i in range(10):
-            btn = Button(text = f"Focused message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
+        for i in range(5):
+            htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Mayur", "Ayush"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            user_name = BLabel(text = f"{htext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(user_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gomess)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
         self.scroll.add_widget(self.grid)
     def other(self, instance):
         self.focused_button.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
-        for i in range(10):
-            btn = Button(text = f"Other message{i+1}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
+        for i in range(5):
+            htext = random.choice(["Ad", "Promotion", "Sponser", "Spam", "Fraud"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            user_name = BLabel(text = f"{htext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(user_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gomess)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
         self.scroll.add_widget(self.grid)
 
 class ProfilePage(Screen):
@@ -835,6 +961,60 @@ class TermsPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
 
+class SettingsPage(Screen):
+    def __init__(self, **kwargs):
+        super(SettingsPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Settings")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
+
+        mid = BoxLayout(orientation = "vertical")
+        self.audio_slider = Slider(min = 0, max = 100, value = 50)
+        self.audio_label = BLabel(text = f"Audio: {self.audio_slider.value}")
+        self.audio_label.bind(on_value = self.update_audio)
+        mid.add_widget(self.audio_label)
+        mid.add_widget(self.audio_slider)
+        self.brightness_label = Label(text="Brightness: 0")
+        self.brightness_slider = Slider(min=0, max=1, value=0.5)
+        self.brightness_slider.bind(on_value=self.on_slider_change)
+        mid.add_widget(self.brightness_label)
+        mid.add_widget(self.brightness_slider)
+        noti_box = BoxLayout()
+        noti_label = BLabel(text = "Notification:")
+        self.noti_btn = ToggleButton(text = "On", state = "down", on_press = self.noti)
+        noti_box.add_widget(noti_label)
+        noti_box.add_widget(self.noti_btn)
+        mid.add_widget(noti_box)
+        layout.add_widget(mid)
+
+        sepa = BoxLayout(size_hint = (1.0, 0.2))
+        line = Color(0,0,0,1)
+        sepa.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
+        layout.add_widget(sepa)
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+
+    def update_audio(self, instance):
+        self.audio_label.text = f"Audio:  {self.audio_slider.value}"
+    def on_slider_change(self, instance):
+        value = self.brightness_slider.value
+        brightness_value = int(value * 100)
+        self.brightness_label.text = f"Brightness: {brightness_value}"
+        Window.clearcolor = [value, value, value, 1]
+    def noti(self, instance):
+        if self.noti_btn.state == "down":
+            self.noti.text = "On"
+        else:
+            self.noti.text = "Off"
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -855,6 +1035,7 @@ class ProjectApp(App):
         screen_manager.add_widget(MainPage(name = "mainpage"))
         screen_manager.add_widget(Blank(name = "blank"))
         screen_manager.add_widget(ToolPage(name = "toolpage"))
+        screen_manager.add_widget(SettingsPage(name = "settingspage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
         screen_manager.add_widget(LoginPage(name = "loginpage"))
