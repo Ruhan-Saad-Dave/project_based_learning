@@ -800,77 +800,40 @@ class UpgradePage(Screen):
 class TermsPage(Screen):
     def __init__(self, **kwargs):
         super(TermsPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Terms & Policies")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
 
-        terms_text = """
-        Terms and Conditions
-
-        Welcome to [Your Platform Name]! These Terms and Conditions govern your use of our platform, including all features, services, and content offered through the platform.
-
-        1. Acceptance of Terms
-
-        By accessing or using our platform, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not use our platform.
-
-        2. Description of Service
-
-        [Your Platform Name] provides an online platform for students to search for hostels, flats, or roommates in their desired area. Users can create profiles, list properties, search for accommodations, and connect with potential roommates.
-
-        3. User Responsibilities
-
-        - Users must provide accurate and up-to-date information when creating profiles or listings.
-        - Users are responsible for maintaining the confidentiality of their account credentials and for all activities that occur under their account.
-        - Users must adhere to our community guidelines and refrain from engaging in any form of harassment, discrimination, or illegal activity on the platform.
-
-        4. Data Privacy
-
-        We collect and process user data in accordance with our Privacy Policy. By using our platform, you consent to the collection, storage, and use of your personal information as described in the Privacy Policy.
-
-        5. Intellectual Property
-
-        All content and materials provided on the platform, including text, images, logos, and trademarks, are owned or licensed by [Your Company Name]. Users retain ownership rights to their own content uploaded or shared on the platform.
-
-        6. Liability
-
-        While we strive to provide accurate and reliable information, we do not guarantee the availability, accuracy, or completeness of content on the platform. We are not liable for any damages or losses arising from the use of our platform.
-
-        7. Termination
-
-        We reserve the right to suspend or terminate user accounts that violate these Terms and Conditions or our community guidelines. Users may also terminate their accounts at any time by contacting us.
-
-        8. Dispute Resolution
-
-        Any disputes arising from the use of our platform shall be resolved through arbitration or mediation, with the laws of [Your Jurisdiction] governing the interpretation of these Terms and Conditions.
-
-        9. Changes to Terms
-
-        We may update or modify these Terms and Conditions from time to time without prior notice. It is your responsibility to review these terms periodically for any changes.
-
-        10. Contact Information
-
-        If you have any questions or concerns about these Terms and Conditions, please contact us at [Your Contact Email].
-        """
-
-        terms_text_with_newlines = "\n".join([terms_text[i:i+30] for i in range(0, len(terms_text), 30)])
-
-        layout = BoxLayout(orientation='vertical', padding=20)
-        scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
-        content = GridLayout(cols = 1, spacing=10, size_hint_y=None)
-        content.bind(minimum_height=content.setter('height'))
-
-        terms_label = Label(text=terms_text_with_newlines, size_hint_y=None, height=scroll.height)
-        content.add_widget(terms_label)
-
-        scroll.add_widget(content)
-        layout.add_widget(scroll)
-
-        agree_button = Button(text="I Agree", size_hint=(None, None), size=(200, 50))
-        agree_button.bind(on_press=self.agree_button_pressed)
-        layout.add_widget(agree_button)
+        term_text1 = TextInput(font_size = 15, text = "Acceptance of Terms:\nUsers agree to these terms by accessing or using the platform.", multiline = True, readonly = True)
+        term_text2 = TextInput(font_size = 12,text = "Description of Service:\n[Your Platform Name] facilitates online searches for hostels, flats, or roommates. Users can create profiles, list properties, search for accommodations, and connect with potential roommates.", multiline = True, readonly = True)
+        term_text3 = TextInput(font_size = 12,text = "User Responsibilities:\nProvide accurate information. Maintain account confidentiality. Adhere to community guidelines and avoid illegal activities.", multiline = True, readonly = True)
+        term_text4 = TextInput(font_size = 12,text = "Data Privacy:\nUser data is collected and processed according to the Privacy Policy. Consent to the collection, storage, and use of personal information.", multiline = True, readonly = True)
+        term_text5 = TextInput(font_size = 12,text = "Intellectual Property:\n[Your Company Name] owns or licenses all content and materials on the platform. Users retain ownership rights to their uploaded content.", multiline = True, readonly = True)
+        term_text6 = TextInput(font_size = 12,text = "Liability:\nNo guarantee of availability, accuracy, or completeness of content. Not liable for damages or losses from platform use.", multiline = True, readonly = True)
+        term_text7 = TextInput(font_size = 15,text = "Termination:\nRight to suspend or terminate accounts for violations. Users can terminate accounts by contacting support.", multiline = True, readonly = True)
+        term_text8 = TextInput(font_size = 15,text = "Dispute Resolution:\nDisputes resolved through arbitration or mediation. Laws of [Your Jurisdiction] govern these terms.", multiline = True, readonly = True)
+        term_text9 = TextInput(font_size = 15,text = "Changes to Terms:\nTerms may be updated without prior notice. Users responsible for reviewing changes periodically.", multiline = True, readonly = True)
+        term_text10 = TextInput(font_size = 15,text = "Contact Information:\nFor questions or concerns, contact [Your Contact Email].", multiline = True, readonly = True)
+        layout.add_widget(term_text1)
+        layout.add_widget(term_text2)
+        layout.add_widget(term_text3)
+        layout.add_widget(term_text4)
+        layout.add_widget(term_text5)
+        layout.add_widget(term_text6)
+        layout.add_widget(term_text7)
+        layout.add_widget(term_text8)
+        layout.add_widget(term_text9)
+        layout.add_widget(term_text10)
 
         self.add_widget(layout)
 
-    def agree_button_pressed(self, instance):
-        self.manager.current = "mainpage"  # Change 'mainpage' to the appropriate screen name
-
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
 
 class Blank(Screen):
     def __init__(self,**kwargs):
