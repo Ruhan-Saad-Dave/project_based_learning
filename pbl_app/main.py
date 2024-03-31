@@ -1,21 +1,209 @@
+import importlib
+import subprocess
+
+required_modules = ['kivy', 'requests']
+
+def check_installation(module_name):
+    try:
+        importlib.import_module(module_name)
+        return True
+    except ImportError:
+        return False
+def install_module(module_name):
+    print(f"Installing {module_name}...")
+    subprocess.check_call(['pip','install',module_name])
+def cim():
+    for module_name in required_modules:
+        if not check_installation(module_name):
+            install_module(module_name)
+        else:
+            print(f"module {module_name} exists")
+
+
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.image import Image
-from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition, FadeTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition, FadeTransition, SlideTransition
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.core.window import Window
 from kivy.uix.slider import Slider
-from kivy.graphics import Color, Line
-from check import check_and_install_modules as cim
-from pages import *
+from kivy.graphics import Color, Line, Rectangle
 import webbrowser
 import random
 
+
+class Start1Page(Screen):
+    def __init__(self,**kwargs):
+        super(Start1Page,self).__init__(**kwargs)
+        pg1 = BoxLayout(orientation = "vertical")
+        top1_label = RLabel(text = "Welcome to", size_hint = (1.0, 0.3), font_size = 50 ,color=(1, 1, 1, 1))
+        logo1_label = RLabel(text = "#1Place holder for project logo",size_hint = (1.0, 0.3))
+        text1_label = RLabel(text = "Before we begin, lets see \nall the features you \ncould get your hands on",size_hint = (1.0, 0.3), font_size = 30)
+ 
+        pg1_1 = BoxLayout(size_hint = (1.0, 0.15))
+        btn1_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
+        btn1_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
+        pg1_1.add_widget(btn1_skip)
+        pg1_1.add_widget(btn1_next)
+
+        pg1.add_widget(top1_label)
+        pg1.add_widget(logo1_label)
+        pg1.add_widget(text1_label)
+        pg1.add_widget(pg1_1)
+
+        self.add_widget(pg1)
+
+    def skip(self, instance):
+        self.manager.transition = SlideTransition(direction = "up")
+        self.manager.current = "mainpage"
+    
+    def next(self, instance):
+        self.manager.transition = SlideTransition()
+        self.manager.current = "start2page"
+
+class Start2Page(Screen):
+    def __init__(self,**kwargs):
+        super(Start2Page,self).__init__(**kwargs)
+        pg2 = BoxLayout(orientation = "vertical")
+        logo2_label = RLabel(text = "#2Placeholder for project logo", size_hint = (1.0, 0.3),font_size = 30)
+        my_text1 = "In CRoom, you can: \n-Find 1k+ hostels and flats\nin you area \n-Search for hostel/flat in\n20+ areas \n-Save your favourite room\nfor later \n-be a landlord \n-And more..."
+        text2_label = RLabel(text = my_text1, font_size = 30)
+
+        pg2_1 = BoxLayout(size_hint = (1.0, 0.2))
+        btn2_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
+        btn2_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
+        btn2_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
+        
+        pg2_1.add_widget(btn2_skip)
+        pg2_1.add_widget(btn2_pre)
+        pg2_1.add_widget(btn2_next)
+
+        pg2.add_widget(logo2_label)
+        pg2.add_widget(text2_label)
+        pg2.add_widget(pg2_1)
+        self.add_widget(pg2)
+
+    def skip(self, instance):
+        self.manager.transition = SlideTransition(direction = "up")
+        self.manager.current = "mainpage"
+
+    def pre(self, instance):
+        self.manager.transition = SlideTransition(direction = "right")
+        self.manager.current = "start1page"
+    
+    def next(self, instance):
+        self.manager.transition = SlideTransition()
+        self.manager.current = "start3page"
+
+class Start3Page(Screen):
+    def __init__(self,**kwargs):
+        super(Start3Page,self).__init__(**kwargs)
+        pg3 = BoxLayout(orientation = "vertical")
+        logo3_label = RLabel(text = "#3Placeholder for project logo", size_hint = (1.0, 0.2), font_size = 30)
+        my_text2 = "We also provide:\n  Zer0 paper work,\n  Zer0 brokerage,\n  Zer0 Installment,\n  Reasonable price for\ncall and subscription!"
+        text3_label = RLabel(text = my_text2, font_size = 30)
+
+        pg3_1 = BoxLayout(size_hint = (1.0, 0.2))
+        btn3_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
+        btn3_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
+        btn3_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
+        pg3_1.add_widget(btn3_skip)
+        pg3_1.add_widget(btn3_pre)
+        pg3_1.add_widget(btn3_next)
+
+
+        pg3.add_widget(logo3_label)
+        pg3.add_widget(text3_label)
+        pg3.add_widget(pg3_1)
+        self.add_widget(pg3)
+
+    def skip(self, instance):
+        self.manager.transition = SlideTransition(direction = "up")
+        self.manager.current = "mainpage"
+    
+    def pre(self, instance):
+        self.manager.transition = SlideTransition(direction = "right")
+        self.manager.current = "start2page"
+    
+    def next(self, instance):
+        self.manager.transition = SlideTransition()
+        self.manager.current = "start4page"
+
+class Start4Page(Screen):
+    def __init__(self,**kwargs):
+        super(Start4Page,self).__init__(**kwargs)
+        pg4 = BoxLayout(orientation = "vertical")
+        logo4_label = RLabel(text = "#4Placeholder for project logo", size_hint = (1.0, 0.3), font_size = 30)
+        text4_label = RLabel(text = "So what are you \nwaiting for?", size_hint = (1.0,0.3), font_size = 30)
+        text4_1_label = RLabel(text = "Put on your shoes\nand lets get\nstarted", size_hint = (1.0,0.3), font_size = 30)
+        text4_2_label = RLabel(text = "#Placeholder for image", size_hint = (1.0, 0.3), font_size = 30)
+
+        pg4_1 = BoxLayout(size_hint = (1.0, 0.2))
+        btn4_start = Button(text = "Start", size_hint = (0.3, 1.0), on_press = self.start)
+        btn4_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
+        pg4_1.add_widget(btn4_pre)
+        pg4_1.add_widget(btn4_start)
+        
+
+        pg4.add_widget(logo4_label)
+        pg4.add_widget(text4_label)
+        pg4.add_widget(text4_1_label)
+        pg4.add_widget(text4_2_label)
+        pg4.add_widget(pg4_1)
+        self.add_widget(pg4)
+
+    def start(self, instance):
+        self.manager.transition = SlideTransition(direction = "up")
+        self.manager.current = "mainpage"
+    
+    def pre(self, instance):
+        self.manager.transition = SlideTransition(direction = "right")
+        self.manager.current = "start3page"
+
+class RLabel(Label):
+    def __init__(self, **kwargs):
+        super(RLabel, self).__init__(**kwargs)
+        
+        # Bind the size and position properties to trigger the update_rect method
+        self.bind(size=self.update_rect, pos=self.update_rect)
+
+        # Update the rectangle initially
+        self.update_rect()
+
+    def update_rect(self, *args):
+        # Clear any existing graphics instructions
+        self.canvas.before.clear()
+
+        with self.canvas.before:
+            # Set the color to red
+            Color(1, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            # Draw a rectangle behind the label
+            Rectangle(pos=self.pos, size=self.size)
+
+class BLabel(Label):
+    def __init__(self, **kwargs):
+        super(BLabel, self).__init__(**kwargs)
+
+        # Bind the size and position properties to trigger the update_rect method
+        self.bind(size=self.update_rect, pos=self.update_rect)
+        
+        # Update the rectangle initially
+        self.update_rect()
+
+    def update_rect(self, *args):
+        # Clear any existing graphics instructions
+        self.canvas.before.clear()
+
+        with self.canvas.before:
+            # Set the color to red
+            Color(0, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            # Draw a rectangle behind the label
+            Rectangle(pos=self.pos, size=self.size, width=1)
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
@@ -351,8 +539,8 @@ class MessagePage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
     def gomess(self, instance):
-        pass
-
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
+        self.manager.current = "messpage"
     def focus(self, instance):
         self.other_button.state = "normal"
         self.grid.clear_widgets()
@@ -1588,7 +1776,85 @@ class RoomPage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "mainpage"
 
-    
+class MessPage(Screen):
+    def __init__(self, **kwargs):
+        super(MessPage, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "User name")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        mid = BoxLayout(orientation = "vertical")
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        for i in range(random.randint(2,10)):
+            user = random.choice(["You", "Them"])
+            answer = random.choice(["Hi", "Hello", "How are you?", "Wassup?", "Im good", "Im fine","How about you?","Just a regular coversation..."])
+            btn_layout = BoxLayout(size_hint_y = None, height = 50)
+            btn_img = BLabel(text = f"{user}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            user_text = BLabel(text = f"{answer}")
+            btn_layout.add_widget(user_text)
+            self.grid.add_widget(btn_layout)
+        self.scroll.add_widget(self.grid)
+        mid.add_widget(self.scroll)
+        self.layout.add_widget(mid)
+
+        bot = BoxLayout(size_hint_y = 0.2)
+        self.textinput = TextInput(hint_text = "Enter something?")
+        send_btn = Button(text = "Send", size_hint_x = 0.2, on_press = self.send)
+        bot.add_widget(self.textinput)
+        bot.add_widget(send_btn)
+        self.layout.add_widget(bot)
+
+        self.add_widget(self.layout)
+        
+    def back(self, instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "messagepage"
+        self.layout.clear_widgets()
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "User name")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        mid = BoxLayout(orientation = "vertical")
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        for i in range(random.randint(2,10)):
+            user = random.choice(["You", "Them"])
+            answer = random.choice(["Hi", "Hello", "How are you?", "Wassup?", "Im good", "Im fine","How about you?","Just a regular coversation..."])
+            btn_layout = BoxLayout(size_hint_y = None, height = 50)
+            btn_img = BLabel(text = f"{user}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            user_text = BLabel(text = f"{answer}")
+            btn_layout.add_widget(user_text)
+            self.grid.add_widget(btn_layout)
+        self.scroll.add_widget(self.grid)
+        mid.add_widget(self.scroll)
+        self.layout.add_widget(mid)
+
+        bot = BoxLayout(size_hint_y = 0.2)
+        self.textinput = TextInput(hint_text = "Enter something?")
+        send_btn = Button(text = "Send", size_hint_x = 0.2, on_press = self.send)
+        bot.add_widget(self.textinput)
+        bot.add_widget(send_btn)
+        self.layout.add_widget(bot)
+
+    def send(self,instance):
+        btn_layout = BoxLayout(size_hint_y = None, height = 50)
+        btn_img = BLabel(text = f"You:", size_hint_x = None, width = 150)
+        btn_layout.add_widget(btn_img)
+        user_text = BLabel(text = f"{self.textinput.text}")
+        btn_layout.add_widget(user_text)
+        self.grid.add_widget(btn_layout)
 
 class Blank(Screen):
     def __init__(self,**kwargs):
@@ -1614,6 +1880,7 @@ class ProjectApp(App):
         screen_manager.add_widget(JoinTeamPage(name = "jointeampage"))
         screen_manager.add_widget(SettingsPage(name = "settingspage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
+        screen_manager.add_widget(MessPage(name = "messpage"))
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
         screen_manager.add_widget(LoginPage(name = "loginpage"))
         screen_manager.add_widget(ForgotPage(name = "forgotpage"))
@@ -1627,10 +1894,10 @@ class ProjectApp(App):
         screen_manager.add_widget(HostelPage(name = "hostelpage"))
         screen_manager.add_widget(FlatPage(name = "flatpage"))
         screen_manager.add_widget(RoomPage(name = "roompage"))
+
         
 
         return screen_manager
     
 if __name__ == "__main__":
-    cim()
     ProjectApp().run()
