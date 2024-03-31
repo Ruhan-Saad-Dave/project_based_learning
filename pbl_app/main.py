@@ -90,25 +90,26 @@ class MainPage(Screen):
             htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Boys", "Girls", "All"])
-            btn_layout = BoxLayout(size = (500, 1000))
-            btn_img = Image(source = f"btn{i+1}")
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
             btn_layout.add_widget(btn_img)
             in_btn_layout = BoxLayout(orientation = "vertical")
             host_name = BLabel(text = f"Hostel {htext}")
             area_name = BLabel(text = f"Area :{self.textinput.text}")
             rate_name = BLabel(text = f"Rate: {rtext * 500}")
             type_name = BLabel(text = f"Type: {ttext}")
+            sep_name = BLabel(text = "_"*100)
             in_btn_layout.add_widget(host_name)
             in_btn_layout.add_widget(area_name)
             in_btn_layout.add_widget(rate_name)
             in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
             btn_layout.add_widget(in_btn_layout)
             go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
             btn_layout.add_widget(go_btn)
             self.grid.add_widget(btn_layout)
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
-
 
     def flat_func(self, instance):
         self.hostel_btn.state = "normal"
@@ -117,28 +118,29 @@ class MainPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            ftext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Boys", "Girls", "All"])
-            btn_layout = BoxLayout(size = (500, 1000))
-            btn_img = Image(source = f"btn{i+1}")
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
             btn_layout.add_widget(btn_img)
             in_btn_layout = BoxLayout(orientation = "vertical")
-            flat_name = BLabel(text = f"Flat {ftext}")
+            host_name = BLabel(text = f"Flat {htext}")
             area_name = BLabel(text = f"Area :{self.textinput.text}")
-            rate_name = BLabel(text = f"Rate: {rtext * 100}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
             type_name = BLabel(text = f"Type: {ttext}")
-            in_btn_layout.add_widget(flat_name)
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
             in_btn_layout.add_widget(area_name)
             in_btn_layout.add_widget(rate_name)
             in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
             btn_layout.add_widget(in_btn_layout)
             go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goflat)
             btn_layout.add_widget(go_btn)
             self.grid.add_widget(btn_layout)
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
-
 
     def roommate_func(self, instance):
         self.flat_btn.state = "normal"
@@ -150,18 +152,20 @@ class MainPage(Screen):
             htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Room", "Roommate"])
-            btn_layout = BoxLayout(size = (500, 1000))
-            btn_img = Image(source = f"btn{i+1}")
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
             btn_layout.add_widget(btn_img)
             in_btn_layout = BoxLayout(orientation = "vertical")
             host_name = BLabel(text = f"{htext}")
             area_name = BLabel(text = f"Area :{self.textinput.text}")
             rate_name = BLabel(text = f"Rate: {rtext * 500}")
             type_name = BLabel(text = f"Searching for: {ttext}")
+            sep_name = BLabel(text = "_"*100)
             in_btn_layout.add_widget(host_name)
             in_btn_layout.add_widget(area_name)
             in_btn_layout.add_widget(rate_name)
             in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
             btn_layout.add_widget(in_btn_layout)
             go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goroom)
             btn_layout.add_widget(go_btn)
@@ -169,14 +173,16 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-
-
     def gohost(self, instance):
-        pass
+        self.manager.transition = FadeTransition()
+        self.manager.current = "hostelpage"
     def goflat(self, instance):
-        pass
+        self.manager.transition = FadeTransition()
+        self.manager.current = "flatpage"
+
     def goroom(self, instance):
-        pass
+        self.manager.transition = FadeTransition()
+        self.manager.current = "roompage"
 
     def search(self, instance):
         area = self.textinput.text
@@ -315,7 +321,7 @@ class MessagePage(Screen):
         layout.add_widget(top_box)
         layout.add_widget(toggle_box)
         layout.add_widget(self.scroll)
-        layout.add_widget(write)
+        #layout.add_widget(write)
 
         self.add_widget(layout)
 
@@ -626,7 +632,7 @@ class TeamPage(Screen):
             area_name = BLabel(text = f"Area: {atext}")
             rate_name = BLabel(text = f"Rate: {rtext * 500}")
             type_name = BLabel(text = f"Type: {ttext}")
-            member_name = BLabel(text = f"Memebe count: {mtext}")
+            member_name = BLabel(text = f"Member count: {mtext}")
             sep_name = BLabel(text = "_"*100)
             in_btn_layout.add_widget(host_name)
             in_btn_layout.add_widget(area_name)
@@ -643,7 +649,7 @@ class TeamPage(Screen):
         layout.add_widget(self.scroll)
 
         create_btn = Button(text = "Create", size_hint_y = 0.2, on_press = self.create)
-        layout.add_widget(create_btn)
+        #layout.add_widget(create_btn)
 
 
         self.add_widget(layout)
@@ -653,9 +659,137 @@ class TeamPage(Screen):
         self.manager.current = "toolpage"
 
     def goteam(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "left", mode = "push")
+        self.manager.current = "jointeampage"
     def create(self, instance):
         pass
+
+class JoinTeamPage(Screen):
+    def __init__(self, **kwargs):
+        super(JoinTeamPage, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Team details:")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        ttext = random.choice(["Boys", "Girls", "All"])
+        mtext = random.randint(1,5)
+        self.btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        self.btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Hostel {htext}")
+        area_name = BLabel(text = f"Area: {atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        member_name = BLabel(text = f"Member count: {mtext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(member_name)
+        in_btn_layout.add_widget(sep_name)
+        self.btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(self.btn_layout)
+
+        self.mid = BoxLayout(orientation = "vertical")
+        mem_label = BLabel(text = "Members:")
+        self.mid.add_widget(mem_label)
+        for i in range(mtext):
+            mem_box = BoxLayout()
+            ut = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
+            user_img = BLabel(text = "#Holder")
+            user_name = BLabel(text = f"{ut}", size_hint_x = None, width = 150)
+            user_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.user)
+            mem_box.add_widget(user_img)
+            mem_box.add_widget(user_name)
+            mem_box.add_widget(user_btn)
+            self.mid.add_widget(mem_box)
+        self.layout.add_widget(self.mid)
+
+        bot = BoxLayout(size_hint_y = 0.2)
+        self.join_btn = Button(text = "Join", on_press = self.join)
+        self.leave_btn = Button(text = "Leave", on_press = self.leave, disabled = True)
+        bot.add_widget(self.join_btn)
+        bot.add_widget(self.leave_btn)
+        self.layout.add_widget(bot)
+
+        self.add_widget(self.layout)
+
+    def back(self, instance):
+        self.manager.transition = CardTransition(direction = "right", mode = "pop")
+        self.manager.current = "teampage"
+        self.layout.clear_widgets()
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Team details:")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        ttext = random.choice(["Boys", "Girls", "All"])
+        mtext = random.randint(1,5)
+        self.btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        self.btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Hostel {htext}")
+        area_name = BLabel(text = f"Area: {atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        member_name = BLabel(text = f"Member count: {mtext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(member_name)
+        in_btn_layout.add_widget(sep_name)
+        self.btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(self.btn_layout)
+
+        self.mid = BoxLayout(orientation = "vertical")
+        mem_label = BLabel(text = "Members:")
+        self.mid.add_widget(mem_label)
+        for i in range(mtext):
+            mem_box = BoxLayout()
+            ut = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
+            user_img = BLabel(text = "#Holder")
+            user_name = BLabel(text = f"{ut}")
+            user_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.user)
+            mem_box.add_widget(user_img)
+            mem_box.add_widget(user_name)
+            mem_box.add_widget(user_btn)
+            self.mid.add_widget(mem_box)
+        self.layout.add_widget(self.mid)
+
+        bot = BoxLayout(size_hint_y = 0.2)
+        self.join_btn = Button(text = "Join", on_press = self.join)
+        self.leave_btn = Button(text = "Leave", on_press = self.leave, disabled = True)
+        bot.add_widget(self.join_btn)
+        bot.add_widget(self.leave_btn)
+        self.layout.add_widget(bot)
+       
+    def user(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "roompage"
+    def join(self,instance):
+        self.join_btn.disabled = True
+        self.leave_btn.disabled = False
+    def leave(self, instance):
+        self.leave_btn.disabled = True
+        self.join_btn.disabled = False
 
 class SavedPage(Screen):
     def __init__(self, **kwargs):
@@ -665,11 +799,9 @@ class SavedPage(Screen):
         top2 = BoxLayout(size_hint = (1.0, 0.1))
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
-        back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.3, 1.0))
-        blank = BLabel(text = "____", size_hint = (0.3, 1.0))
-        logo_label = BLabel(text = "Saved profiles")
+        back_btn = Button(text = "Back", on_press = self.back, size_hint_x = 0.2)
+        blank = BLabel(text = "Saved", size_hint = (0.3, 1.0))
         top1.add_widget(back_btn)
-        top1.add_widget(logo_label)
         top1.add_widget(blank)
 
         self.hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func, state = "down")
@@ -689,11 +821,30 @@ class SavedPage(Screen):
         self.grid.bind(minimum_height = self.grid.setter('height'))
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Hostel {htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
-        
+
 
         out.add_widget(top1)
         out.add_widget(top2)
@@ -708,9 +859,28 @@ class SavedPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Hostel{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Hostel {htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
     def flat_func(self, instance):
@@ -720,9 +890,28 @@ class SavedPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Flat{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Boys", "Girls", "All"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Flat {htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goflat)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
     def roommate_func(self, instance):
@@ -732,20 +921,48 @@ class SavedPage(Screen):
         self.scroll.clear_widgets()
         self.buttons = []
         for i in range(10):
-            btn = Button(text = f"Roommate{i+1} in {self.textinput.text}",size_hint_y = None, height = 150, on_press = self.goto)
-            self.grid.add_widget(btn)
-            self.buttons.append(btn)
+            htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
+            rtext = random.randint(1, 9)
+            ttext = random.choice(["Room", "Roommate"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"{htext}")
+            area_name = BLabel(text = f"Area :{self.textinput.text}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Searching for: {ttext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goroom)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
+
+    def gohost(self, instance):
+        self.manager.transiton = FadeTransition()
+        self.manager.current = "hostelpage"
+    def goflat(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "flatpage"
+
+    def goroom(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "roompage"
 
     def search(self, instance):
         area = self.textinput.text
         for button in self.buttons:
-            button.text = f"{button.text.split()[0]} in {area}"
-    
+            button.text = f"Area :{self.textinput.text}"
     def goto(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"       
-
     def back(self,instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
@@ -1040,12 +1257,10 @@ class SettingsPage(Screen):
         mid = BoxLayout(orientation = "vertical")
         self.audio_slider = Slider(min = 0, max = 100, value = 50)
         self.audio_label = BLabel(text = f"Audio: {self.audio_slider.value}")
-        self.audio_label.bind(on_value = self.update_audio)
         mid.add_widget(self.audio_label)
         mid.add_widget(self.audio_slider)
         self.brightness_label = Label(text="Brightness: 0")
         self.brightness_slider = Slider(min=0, max=1, value=0.5)
-        self.brightness_slider.bind(on_value=self.on_slider_change)
         mid.add_widget(self.brightness_label)
         mid.add_widget(self.brightness_slider)
         noti_box = BoxLayout()
@@ -1076,9 +1291,304 @@ class SettingsPage(Screen):
         Window.clearcolor = [value, value, value, 1]
     def noti(self, instance):
         if self.noti_btn.state == "down":
-            self.noti.text = "On"
+            self.noti_btn.text = "On"
         else:
-            self.noti.text = "Off"
+            self.noti_btn.text = "off"
+
+class HostelPage(Screen):
+    def __init__(self, **kwargs):
+        super(HostelPage, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Hostel")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        ttext = random.choice(["Boys", "Girls", "All"])
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Hostel {htext}")
+        area_name = BLabel(text = f"Area :{atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(sep_name)
+        btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(btn_layout)
+
+        sic =  BoxLayout(size_hint_y = 0.2)
+        save_btn = Button(text = "Save", on_press = self.save)
+        inter_btn = Button(text = "Interested", on_press = self.inter)
+        call_btn = Button(text = "Call", on_press = self.call)
+        sic.add_widget(save_btn)
+        sic.add_widget(inter_btn)
+        sic.add_widget(call_btn)
+        self.layout.add_widget(sic)
+
+        fac_label = BLabel(text = "Facilities", size_hint_y = 0.2)
+        self.layout.add_widget(fac_label)
+        fac_grid = GridLayout(cols = 4)
+        for i in range(random.randint(1,8)):
+            txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
+            fac_btn = Button(text = f"{txt}", disabled = True)
+            fac_grid.add_widget(fac_btn)
+        self.layout.add_widget(fac_grid)
+
+        self.add_widget(self.layout)
+        
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "mainpage"
+        self.layout.clear_widgets()
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Hostel")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        ttext = random.choice(["Boys", "Girls", "All"])
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Hostel {htext}")
+        area_name = BLabel(text = f"Area :{atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(sep_name)
+        btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(btn_layout)
+
+        sic =  BoxLayout(size_hint_y = 0.2)
+        save_btn = Button(text = "Save", on_press = self.save)
+        inter_btn = Button(text = "Interested", on_press = self.inter)
+        call_btn = Button(text = "Call", on_press = self.call)
+        sic.add_widget(save_btn)
+        sic.add_widget(inter_btn)
+        sic.add_widget(call_btn)
+        self.layout.add_widget(sic)
+
+        fac_label = BLabel(text = "Facilities", size_hint_y = 0.2)
+        self.layout.add_widget(fac_label)
+        fac_grid = GridLayout(cols = 4)
+        for i in range(random.randint(1,8)):
+            txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
+            fac_btn = Button(text = f"{txt}", disabled = True)
+            fac_grid.add_widget(fac_btn)
+        self.layout.add_widget(fac_grid)
+        
+    def save(self, instance):
+        pass
+    def inter(self, instance):
+        pass
+    def call(self, instance):
+        pass
+
+class FlatPage(Screen):
+    def __init__(self, **kwargs):
+        super(FlatPage, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Flat")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        ttext = random.choice(["Boys", "Girls", "All"])
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Flat {htext}")
+        area_name = BLabel(text = f"Area :{atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(sep_name)
+        btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(btn_layout)
+
+        sic =  BoxLayout(size_hint_y = 0.2)
+        save_btn = Button(text = "Save", on_press = self.save)
+        inter_btn = Button(text = "Interested", on_press = self.inter)
+        call_btn = Button(text = "Call", on_press = self.call)
+        sic.add_widget(save_btn)
+        sic.add_widget(inter_btn)
+        sic.add_widget(call_btn)
+        self.layout.add_widget(sic)
+
+        fac_label = BLabel(text = "Facilities", size_hint_y = 0.2)
+        self.layout.add_widget(fac_label)
+        fac_grid = GridLayout(cols = 4)
+        for i in range(random.randint(1,8)):
+            txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
+            fac_btn = Button(text = f"{txt}", disabled = True)
+            fac_grid.add_widget(fac_btn)
+        self.layout.add_widget(fac_grid)
+
+        self.add_widget(self.layout)
+        
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "mainpage"
+        self.layout.clear_widgets()
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Flat")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+
+        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+        rtext = random.randint(1, 9)
+        ttext = random.choice(["Boys", "Girls", "All"])
+        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
+        btn_img = BLabel(text = f"#image", size_hint_x = None, width = 150)
+        btn_layout.add_widget(btn_img)
+        in_btn_layout = BoxLayout(orientation = "vertical")
+        host_name = BLabel(text = f"Flat {htext}")
+        area_name = BLabel(text = f"Area :{atext}")
+        rate_name = BLabel(text = f"Rate: {rtext * 500}")
+        type_name = BLabel(text = f"Type: {ttext}")
+        sep_name = BLabel(text = "_"*100)
+        in_btn_layout.add_widget(host_name)
+        in_btn_layout.add_widget(area_name)
+        in_btn_layout.add_widget(rate_name)
+        in_btn_layout.add_widget(type_name)
+        in_btn_layout.add_widget(sep_name)
+        btn_layout.add_widget(in_btn_layout)
+        self.layout.add_widget(btn_layout)
+
+        sic =  BoxLayout(size_hint_y = 0.2)
+        save_btn = Button(text = "Save", on_press = self.save)
+        inter_btn = Button(text = "Interested", on_press = self.inter)
+        call_btn = Button(text = "Call", on_press = self.call)
+        sic.add_widget(save_btn)
+        sic.add_widget(inter_btn)
+        sic.add_widget(call_btn)
+        self.layout.add_widget(sic)
+
+        fac_label = BLabel(text = "Facilities", size_hint_y = 0.2)
+        self.layout.add_widget(fac_label)
+        fac_grid = GridLayout(cols = 4)
+        for i in range(random.randint(1,8)):
+            txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
+            fac_btn = Button(text = f"{txt}", disabled = True)
+            fac_grid.add_widget(fac_btn)
+        self.layout.add_widget(fac_grid)
+        
+    def save(self, instance):
+        pass
+    def inter(self, instance):
+        pass
+    def call(self, instance):
+        pass
+
+class RoomPage(Screen):
+    def __init__(self, **kwargs):
+        super(RoomPage, self).__init__(**kwargs)
+        grid = BoxLayout(orientation = "vertical")
+        grid.bind(minimum_height = grid.setter('height'))
+
+        top = BoxLayout(size_hint_y = 0.15)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Profile      ")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        grid.add_widget(top)
+
+        top2 = BoxLayout(size_hint_y = 0.15)
+        logo = Image(source='logo.png', size_hint=(0.3, 1.0))
+        right_layout = BoxLayout(orientation='vertical')
+        username_label = BLabel(text='Username')
+        area_layout = BoxLayout(size_hint_y = 0.25)
+        area_label = BLabel(text='Area', size_hint=(0.7, 1.0))
+        area_layout.add_widget(area_label)
+        right_layout.add_widget(username_label)
+        right_layout.add_widget(area_layout)
+        top2.add_widget(logo)
+        top2.add_widget(right_layout)
+        grid.add_widget(top2)
+        
+        sepa1 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa1.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa1)
+
+        top3 = BoxLayout(orientation = "vertical", size_hint_y = 0.2)
+        base = BLabel(text = "Basic Details:", size_hint_y = 0.3)
+        grid1 = GridLayout(cols = 2, y = 150)
+        gender = BLabel(text = "gender : male", font_size = 30)
+        age = BLabel(text = "age : 20", font_size = 30)
+        study = BLabel(text = "Years of study : FE", font_size = 30)
+        branch = BLabel(text = "Branch : CS", font_size = 30)
+        grid1.add_widget(gender)
+        grid1.add_widget(age)
+        grid1.add_widget(study)
+        grid1.add_widget(branch)
+        top3.add_widget(base)
+        top3.add_widget(grid1)
+        grid.add_widget(top3)
+
+        sepa2 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa2)
+
+        bot = BoxLayout(orientation = "vertical")
+        bot_top = BoxLayout(size_hint_y = 0.2)
+        pre_label = BLabel(text = "Preference:")
+        bot_top.add_widget(pre_label)
+        bot.add_widget(bot_top)
+        bot_grid = GridLayout(cols = 4)
+        for i in range(14):
+            pre_box = BoxLayout(orientation = "vertical")
+            pre_logo = Image(source=f'pre{i+1}.png')
+            pre_pre_label = BLabel(text = f"{i+1}")
+            pre_box.add_widget(pre_logo)
+            pre_box.add_widget(pre_pre_label)
+            bot_grid.add_widget(pre_box)
+        bot.add_widget(bot_grid)
+        grid.add_widget(bot)
+
+        self.add_widget(grid)
+
+    def back(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "mainpage"
+
+    
 
 class Blank(Screen):
     def __init__(self,**kwargs):
@@ -1101,6 +1611,7 @@ class ProjectApp(App):
         screen_manager.add_widget(Blank(name = "blank"))
         screen_manager.add_widget(ToolPage(name = "toolpage"))
         screen_manager.add_widget(TeamPage(name = "teampage"))
+        screen_manager.add_widget(JoinTeamPage(name = "jointeampage"))
         screen_manager.add_widget(SettingsPage(name = "settingspage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
@@ -1113,6 +1624,9 @@ class ProjectApp(App):
         screen_manager.add_widget(UpgradePage(name = "upgradepage"))
         screen_manager.add_widget(FAQPage(name = "faqpage"))
         screen_manager.add_widget(TermsPage(name = "termspage"))
+        screen_manager.add_widget(HostelPage(name = "hostelpage"))
+        screen_manager.add_widget(FlatPage(name = "flatpage"))
+        screen_manager.add_widget(RoomPage(name = "roompage"))
         
 
         return screen_manager
