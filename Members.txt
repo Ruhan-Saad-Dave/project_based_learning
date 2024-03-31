@@ -3,6 +3,6 @@
 #Take this as a pratice of how to make changes in other's file
 
 
-[Ruhan Saad Dave]https://github.com/Ruhan-Saad-Dave
+[Ruhan Saad Dave]
 #Yash Sanjay Chavan 
 #Prem G Gavhane
