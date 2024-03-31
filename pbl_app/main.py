@@ -206,11 +206,13 @@ class ToolPage(Screen):
 
         btn_box = BoxLayout(orientation = "vertical")
         prof_btn = Button(text = "Profile", on_press = self.prof)
+        team_btn = Button(text = "Team", on_press = self.team)
         saved_btn = Button(text = "Saved", on_press = self.save)
         upgrade_btn = Button(text = "Upgrades", on_press = self.upgrade)
         term_btn = Button(text = "Terms & Policies", on_press = self.term)
         land_btn = Button(text = "Be a Landlord", on_press = self.land)
         btn_box.add_widget(prof_btn)
+        btn_box.add_widget(team_btn)
         btn_box.add_widget(saved_btn)
         btn_box.add_widget(upgrade_btn)
         btn_box.add_widget(term_btn)
@@ -244,6 +246,9 @@ class ToolPage(Screen):
     def prof(self,instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "profilepage"
+    def team(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "teampage"
     def save(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "savedpage"
@@ -591,6 +596,66 @@ class LoginPage(Screen):
     def sign(self, instance):
         self.manager.transition = CardTransition(direction = "left", mode = "push")
         self.manager.current = "signpage"
+
+class TeamPage(Screen):
+    def __init__(self, **kwargs):
+        super(TeamPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+        top = BoxLayout(size_hint_y= 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = BLabel(text = "Team")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
+
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        self.buttons = []
+        for i in range(10):
+            htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
+            rtext = random.randint(1, 9)
+            atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+            ttext = random.choice(["Boys", "Girls", "All"])
+            mtext = random.randint(1,5)
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = BLabel(text = f"Hostel {htext}")
+            area_name = BLabel(text = f"Area: {atext}")
+            rate_name = BLabel(text = f"Rate: {rtext * 500}")
+            type_name = BLabel(text = f"Type: {ttext}")
+            member_name = BLabel(text = f"Memebe count: {mtext}")
+            sep_name = BLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(area_name)
+            in_btn_layout.add_widget(rate_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(member_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.goteam)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+            self.buttons.append(area_name)
+        self.scroll.add_widget(self.grid)
+        layout.add_widget(self.scroll)
+
+        create_btn = Button(text = "Create", size_hint_y = 0.2, on_press = self.create)
+        layout.add_widget(create_btn)
+
+
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "toolpage"
+
+    def goteam(self, instance):
+        pass
+    def create(self, instance):
+        pass
 
 class SavedPage(Screen):
     def __init__(self, **kwargs):
@@ -1035,6 +1100,7 @@ class ProjectApp(App):
         screen_manager.add_widget(MainPage(name = "mainpage"))
         screen_manager.add_widget(Blank(name = "blank"))
         screen_manager.add_widget(ToolPage(name = "toolpage"))
+        screen_manager.add_widget(TeamPage(name = "teampage"))
         screen_manager.add_widget(SettingsPage(name = "settingspage"))
         screen_manager.add_widget(MessagePage(name = "messagepage"))
         screen_manager.add_widget(ProfilePage(name = "profilepage"))
