@@ -13,6 +13,7 @@ from kivy.uix.slider import Slider
 from kivy.graphics import Color, Line, Rectangle
 import webbrowser
 import random
+from check import cim
 
 
 class Start1Page(Screen):
