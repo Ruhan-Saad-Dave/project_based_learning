@@ -27,3 +27,37 @@ Make sure to leave comments to explain code.
 #Create a funtion that takes in username, email, phone number, password. and save in database. this is used to create a new account.
 
 #More functions to create are coming soon.
+
+
+import pymongo
+
+# Establish connection to MongoDB
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["mydatabase"]  # Replace "mydatabase" with your database name
+
+# Create collections
+hostel_col = db["hostel"]
+student_col = db["student"]
+
+# Define sample data
+hostel_data = [
+    {"hostel_id": 1, "hostel_name": "Hostel A", "price": 5000},
+    {"hostel_id": 2, "hostel_name": "Hostel B", "price": 6000},
+    {"hostel_id": 3, "hostel_name": "Hostel C", "price": 5500},
+    {"hostel_id": 4, "hostel_name": "Hostel D", "price": 7000},
+    {"hostel_id": 5, "hostel_name": "Hostel E", "price": 6500}
+]
+
+student_data = [
+    {"stu_id": 1, "stu_name": "John", "college_name": "ABC College"},
+    {"stu_id": 2, "stu_name": "Alice", "college_name": "XYZ University"},
+    {"stu_id": 3, "stu_name": "Bob", "college_name": "DEF Institute"},
+    {"stu_id": 4, "stu_name": "Emma", "college_name": "GHI School"},
+    {"stu_id": 5, "stu_name": "Michael", "college_name": "JKL Academy"}
+]
+
+# Insert data into collections
+hostel_col.insert_many(hostel_data)
+student_col.insert_many(student_data)
+
+print("Data inserted successfully.")
