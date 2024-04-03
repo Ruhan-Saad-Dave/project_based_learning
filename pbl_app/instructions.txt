@@ -4,7 +4,5 @@ Focus on working in the file designated to you and try to avoid looking and chan
 
 Files purpose:
 - main.py ~ This is the main/ central part of the program, run directly.
-- check.py ~ This file checks if a certain module is present or not in the device. If not present it will do the installation.
-- pages.py ~ This is just the GUI of the introduction pages, it is kept in separate file to improve readability.
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
 

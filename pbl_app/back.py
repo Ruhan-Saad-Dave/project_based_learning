@@ -10,6 +10,8 @@ Functions required:
 - Display data with some conditions.
 - Retrieve the data and store it in a python variable.
 
+mongodb+srv://ruhandave2003:admin@cluster0.0zjtugn.mongodb.net/
+
 Make sure to leave comments to explain code.
 """
 
@@ -32,8 +34,8 @@ Make sure to leave comments to explain code.
 import pymongo
 
 # Establish connection to MongoDB
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["mydatabase"]  # Replace "mydatabase" with your database name
+client = pymongo.MongoClient("mongodb+srv://ruhandave2003:admin@cluster0.0zjtugn.mongodb.net/")
+db = client["Cluster0"]  # Replace "mydatabase" with your database name
 
 # Create collections
 hostel_col = db["hostel"]
