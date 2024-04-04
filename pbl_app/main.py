@@ -1,3 +1,5 @@
+from check import cim
+cim()
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -13,7 +15,7 @@ from kivy.uix.slider import Slider
 from kivy.graphics import Color, Line, Rectangle
 import webbrowser
 import random
-from check import cim
+
 
 
 class Start1Page(Screen):
@@ -1879,5 +1881,4 @@ class ProjectApp(App):
         return screen_manager
     
 if __name__ == "__main__":
-    cim()
     ProjectApp().run()
