@@ -1,7 +1,7 @@
 import importlib
 import subprocess
 
-required_modules = ['kivy', 'requests']
+required_modules = ['kivy', 'requests', 'pymongo']
 
 def check_installation(module_name):
     try:

@@ -32,34 +32,64 @@ Make sure to leave comments to explain code.
 
 
 import pymongo
+import random
+
+#Global constants
+#These are temporarily used for creation of artificial data, there can be more than 200 unique combinations based on the informations used.
+AREA = ["Akurdi", "Pimpri", "Lonavala", "Shivaji Nagar","Talegaon", "Kanpur", "Pune", "Vashi", "Nerul", "Sanpada", "Juinagar", "Kalyan", "Ulwe", "Seawoods"]
+STUDENT_NAME = ["Ruhan", "Yash", "Prem", "Ayush", "Mayur", "Atul", "Raj", "Nikhil", "Hano", "Abhinav", "Sujay", "Shlok", "Charudatta", "Aditya", "Lokesh", "Yashraj", "Sahil"]
+YEAR_OF_STUDY = ["1st yr", "2nd yr", "3rd yr", "4th year", "Diploma"]
+BRANCH = ["Computer", "Mechanical", "Civil", "Chemical", "AIDS", "ENTC", "BBA", "B-ARCH"]
+HOSTEL_NAME = ["A1 Hostel", "Edunest Hostel", "StudentHaven Dormitory", "CampusComfort Residency", "Scholar's Retreat", "LearningLodge Hostel"]
+TYPE = ["Boys", "Girls", "All"]
+MESSAGE = ["Hi", "Hello", "How are you?", "I'm fine", "Wassup", "How do you do?", "I'm doing great", "Are you planning to stay here?", "Yes", "No", "Just a regular conversation", "I'm behind you, don't look back"]
+COLLEGE_NAME = ["DYPIEMR", "DYPCOE", "DYPIU", "PCCOE", "PCCOER", "COEP", "VJTI", "IITB", "IITH", "PICT", "MITWPU", "MITADT", "Harvard University", "Oxford university"]
+GENDER = ["Male", "Female", "Transgender", "Other", "Prefer not to say"]
+
+COLLECTION_NAME = ["login details", "user profile", "hostel profile", "hostel rating", "user saved profile"]
+
 
 # Establish connection to MongoDB
 client = pymongo.MongoClient("mongodb+srv://ruhandave2003:admin@cluster0.0zjtugn.mongodb.net/")
 db = client["Cluster0"]  # Replace "mydatabase" with your database name
 
 # Create collections
-hostel_col = db["hostel"]
-student_col = db["student"]
+login_detail_col = db["login detail"]
+user_profile_col = db["user profile"]
+hostel_profile_col = db["hostel profile"]
+hostel_rating_col = db["hostel rating"]
+owner_detail_col = db["owner detail"]
+user_saved_profile = db["user saved profile"]
 
-# Define sample data
-hostel_data = [
-    {"hostel_id": 1, "hostel_name": "Hostel A", "price": 5000},
-    {"hostel_id": 2, "hostel_name": "Hostel B", "price": 6000},
-    {"hostel_id": 3, "hostel_name": "Hostel C", "price": 5500},
-    {"hostel_id": 4, "hostel_name": "Hostel D", "price": 7000},
-    {"hostel_id": 5, "hostel_name": "Hostel E", "price": 6500}
-]
+#making of sample data
+for i in range(10):
+    name = random.choice(STUDENT_NAME)
+    college = random.choice(COLLEGE_NAME)
+    year = random.choice(YEAR_OF_STUDY)
+    branch = random.choice(BRANCH)
+    gender = random.choice(GENDER)
+    login_dict = {"user_id" : i+1, "user email" : f"{name}@gmail.com", "password" : f"{name}_{i+1}"}
+    a = login_detail_col.insert_one(login_dict)
+    user_dict = {"user_id" : i+1, "user_name" : name, "user_age" : random.randint(18,23), "college" : college, "year_of_study" : year, "branch" : branch, "phone_no" : random.randint(1000000000, 9999999999), "gender" : gender, "photo" : None, "about" : "Blah Blah Blah"}
+    b = user_profile_col.insert_one(user_dict)
+    hostel_profile_dict = {"hostel_id" : i+1, "owner_id" : i+1, }
 
-student_data = [
-    {"stu_id": 1, "stu_name": "John", "college_name": "ABC College"},
-    {"stu_id": 2, "stu_name": "Alice", "college_name": "XYZ University"},
-    {"stu_id": 3, "stu_name": "Bob", "college_name": "DEF Institute"},
-    {"stu_id": 4, "stu_name": "Emma", "college_name": "GHI School"},
-    {"stu_id": 5, "stu_name": "Michael", "college_name": "JKL Academy"}
-]
 
-# Insert data into collections
-hostel_col.insert_many(hostel_data)
-student_col.insert_many(student_data)
 
-print("Data inserted successfully.")
+#checking existance of database and tables
+def check_db():
+    dblist = client.list_database_names()
+    if "Cluster0" not in dblist:  # check if the specific database exists, if no then create it.
+        print("Database does not exists")
+    else: #this part is used to check tables, which in rare case wont be there
+        print("Database exists, checking for collections")
+        col_list = client.list_collection_names()
+        for i in COLLECTION_NAME: 
+            if i not in col_list:
+                print(f"Collection '{i}' does not exist" )
+            else:
+                print(f"Collection '{i}' exists!")
+        
+
+
+
