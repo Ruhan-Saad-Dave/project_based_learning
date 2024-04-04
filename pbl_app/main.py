@@ -1,5 +1,7 @@
-from check import cim
-cim()
+from check import check_and_install_module as cim
+cim()    #Tests for presence of required libraries, need to keep this and the beginning to avoid any errors.
+
+#These are the sub-modules of the kivy library, which will be used to develop the app interface.
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
@@ -13,76 +15,156 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.core.window import Window
 from kivy.uix.slider import Slider
 from kivy.graphics import Color, Line, Rectangle
-import webbrowser
-import random
 
+import webbrowser    #Used to take user to a website
+import random    #Used for randomly generating artificial data, will be removed once the project will be launched in the market.
+
+
+class RLabel(Label):
+    '''
+    This class creates a red colour background for the labels, as is the original labels the background is transpart.
+
+    Inheriting from the original Label class and making changes to it.
+    '''
+    def __init__(self, **kwargs):
+        '''Initiallization of the widget'''
+        super(RLabel, self).__init__(**kwargs)
+        # Bind the size and position properties to trigger the update_rect method
+        self.bind(size=self.update_rect, pos=self.update_rect)    
+        # Update the rectangle initially
+        self.update_rect()    
+
+    def update_rect(self, *args):
+        # Clear any existing graphics instructions
+        self.canvas.before.clear()
+
+        with self.canvas.before:
+            # Set the color to red
+            Color(1, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            # Draw a rectangle behind the label
+            Rectangle(pos=self.pos, size=self.size)
+
+class BLabel(Label):
+    '''
+    This class creates a black colour background for the labels, as is the original labels the background is transpart.
+
+    Inheriting from the original Label class and making changes to it.
+    '''
+    def __init__(self, **kwargs):
+        #Initiallization of the widget
+        super(BLabel, self).__init__(**kwargs)
+        # Bind the size and position properties to trigger the update_rect method
+        self.bind(size=self.update_rect, pos=self.update_rect)
+        # Update the rectangle initially
+        self.update_rect()
+
+    def update_rect(self, *args):
+        # Clear any existing graphics instructions
+        self.canvas.before.clear()
+
+        with self.canvas.before:
+            # Set the color to red
+            Color(0, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            # Draw a rectangle behind the label
+            Rectangle(pos=self.pos, size=self.size, width=1)
 
 
 class Start1Page(Screen):
-    def __init__(self,**kwargs):
+    '''
+    This is the 1st of the introduction page.
+
+    This page (and all the other 3 introduction page) explains what does our project offers.
+
+    skip button - Takes the user directly to main page.
+    next button - Takes the user to the next introduction page. 
+    '''
+    def __init__(self,**kwargs):    #Initiallization of the screen/page.
         super(Start1Page,self).__init__(**kwargs)
+        #A widgets holder that displays information
         pg1 = BoxLayout(orientation = "vertical")
         top1_label = RLabel(text = "Welcome to", size_hint = (1.0, 0.3), font_size = 50 ,color=(1, 1, 1, 1))
         logo1_label = RLabel(text = "#1Place holder for project logo",size_hint = (1.0, 0.3))
         text1_label = RLabel(text = "Before we begin, lets see \nall the features you \ncould get your hands on",size_hint = (1.0, 0.3), font_size = 30)
- 
+
+        #A widgets holder for the 'skip' and 'next' button
         pg1_1 = BoxLayout(size_hint = (1.0, 0.15))
         btn1_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
         btn1_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
         pg1_1.add_widget(btn1_skip)
         pg1_1.add_widget(btn1_next)
 
+        #Adds the widgets holder to the outer most holder, then saving it into the screen/page
         pg1.add_widget(top1_label)
         pg1.add_widget(logo1_label)
         pg1.add_widget(text1_label)
         pg1.add_widget(pg1_1)
-
         self.add_widget(pg1)
 
-    def skip(self, instance):
+    def skip(self, instance):    #Function for the 'skip' button
         self.manager.transition = SlideTransition(direction = "up")
         self.manager.current = "mainpage"
     
-    def next(self, instance):
+    def next(self, instance):    #Function for the 'next' button
         self.manager.transition = SlideTransition()
         self.manager.current = "start2page"
 
 class Start2Page(Screen):
-    def __init__(self,**kwargs):
+    '''
+    This is the 2nd of the introduction page.
+
+    This page (and all the other 3 introduction page) explains what does our project offers.
+
+    skip button - Takes the user directly to main page.
+    previous button - Takes the user to the previous page incase he/she accidentally press 'next' and didnt read the content.
+    next button - Takes the user to the next introduction page. 
+    '''
+    def __init__(self,**kwargs):    #Initiallization of the screen/page
         super(Start2Page,self).__init__(**kwargs)
+        #Widgets holder for the content to be displayed
         pg2 = BoxLayout(orientation = "vertical")
         logo2_label = RLabel(text = "#2Placeholder for project logo", size_hint = (1.0, 0.3),font_size = 30)
         my_text1 = "In CRoom, you can: \n-Find 1k+ hostels and flats\nin you area \n-Search for hostel/flat in\n20+ areas \n-Save your favourite room\nfor later \n-be a landlord \n-And more..."
         text2_label = RLabel(text = my_text1, font_size = 30)
 
+        #Widgets holder for the buttons
         pg2_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn2_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
         btn2_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
         btn2_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
-        
+        #Adds the buttons to the holder
         pg2_1.add_widget(btn2_skip)
         pg2_1.add_widget(btn2_pre)
         pg2_1.add_widget(btn2_next)
 
+        #Adds all the widgets to the outer most holder, and saving it to the screen/page.
         pg2.add_widget(logo2_label)
         pg2.add_widget(text2_label)
         pg2.add_widget(pg2_1)
         self.add_widget(pg2)
 
-    def skip(self, instance):
+    def skip(self, instance):    #Function for the 'skip' button.
         self.manager.transition = SlideTransition(direction = "up")
         self.manager.current = "mainpage"
 
-    def pre(self, instance):
+    def pre(self, instance):    #Function for the 'previous' button.
         self.manager.transition = SlideTransition(direction = "right")
         self.manager.current = "start1page"
     
-    def next(self, instance):
+    def next(self, instance):    #Function for the 'next' button.
         self.manager.transition = SlideTransition()
         self.manager.current = "start3page"
 
 class Start3Page(Screen):
-    def __init__(self,**kwargs):
+    '''
+    This is the 3rd of the introduction page.
+
+    This page (and all the other 3 introduction page) explains what does our project offers.
+
+    skip button - Takes the user directly to main page.
+    previous button - Takes the user to the previous page incase he/she accidentally press 'next' and didnt read the content.
+    next button - Takes the user to the next introduction page. 
+    '''
+    def __init__(self,**kwargs):    #Initiallization of the screen/page.
         super(Start3Page,self).__init__(**kwargs)
         pg3 = BoxLayout(orientation = "vertical")
         logo3_label = RLabel(text = "#3Placeholder for project logo", size_hint = (1.0, 0.2), font_size = 30)
@@ -145,46 +227,6 @@ class Start4Page(Screen):
     def pre(self, instance):
         self.manager.transition = SlideTransition(direction = "right")
         self.manager.current = "start3page"
-
-class RLabel(Label):
-    def __init__(self, **kwargs):
-        super(RLabel, self).__init__(**kwargs)
-        
-        # Bind the size and position properties to trigger the update_rect method
-        self.bind(size=self.update_rect, pos=self.update_rect)
-
-        # Update the rectangle initially
-        self.update_rect()
-
-    def update_rect(self, *args):
-        # Clear any existing graphics instructions
-        self.canvas.before.clear()
-
-        with self.canvas.before:
-            # Set the color to red
-            Color(1, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
-            # Draw a rectangle behind the label
-            Rectangle(pos=self.pos, size=self.size)
-
-class BLabel(Label):
-    def __init__(self, **kwargs):
-        super(BLabel, self).__init__(**kwargs)
-
-        # Bind the size and position properties to trigger the update_rect method
-        self.bind(size=self.update_rect, pos=self.update_rect)
-        
-        # Update the rectangle initially
-        self.update_rect()
-
-    def update_rect(self, *args):
-        # Clear any existing graphics instructions
-        self.canvas.before.clear()
-
-        with self.canvas.before:
-            # Set the color to red
-            Color(0, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
-            # Draw a rectangle behind the label
-            Rectangle(pos=self.pos, size=self.size, width=1)
 
 class MainPage(Screen):
     def __init__(self,**kwargs):
