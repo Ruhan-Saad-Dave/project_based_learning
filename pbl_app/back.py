@@ -45,8 +45,10 @@ TYPE = ["Boys", "Girls", "All"]
 MESSAGE = ["Hi", "Hello", "How are you?", "I'm fine", "Wassup", "How do you do?", "I'm doing great", "Are you planning to stay here?", "Yes", "No", "Just a regular conversation", "I'm behind you, don't look back"]
 COLLEGE_NAME = ["DYPIEMR", "DYPCOE", "DYPIU", "PCCOE", "PCCOER", "COEP", "VJTI", "IITB", "IITH", "PICT", "MITWPU", "MITADT", "Harvard University", "Oxford university"]
 GENDER = ["Male", "Female", "Transgender", "Other", "Prefer not to say"]
+REVIEW = ["Very nice", "Very good", "Fine enough", "Need improvements", "Bad", "Very bad"]
+OWNER_NAME = ["Felix", "Raith", "Proximity", "Ruhan"]
 
-COLLECTION_NAME = ["login details", "user profile", "hostel profile", "hostel rating", "user saved profile"]
+COLLECTION_NAME = ["login detail", "user profile", "hostel profile", "hostel rating", "owner detail"]
 
 
 # Establish connection to MongoDB
@@ -59,7 +61,6 @@ user_profile_col = db["user profile"]
 hostel_profile_col = db["hostel profile"]
 hostel_rating_col = db["hostel rating"]
 owner_detail_col = db["owner detail"]
-user_saved_profile = db["user saved profile"]
 
 #making of sample data
 for i in range(10):
@@ -68,11 +69,24 @@ for i in range(10):
     year = random.choice(YEAR_OF_STUDY)
     branch = random.choice(BRANCH)
     gender = random.choice(GENDER)
+    hostel = random.choice(HOSTEL_NAME)
+    area = random.choice(AREA)
+    price = random.randint(100, 500)
+    type_room = random.choice(TYPE)
+    review = random.choice(REVIEW)
+    wash = random.choice(["private", "common", "none"])
+    owner = random.choice(OWNER_NAME)
+
     login_dict = {"user_id" : i+1, "user email" : f"{name}@gmail.com", "password" : f"{name}_{i+1}"}
     a = login_detail_col.insert_one(login_dict)
     user_dict = {"user_id" : i+1, "user_name" : name, "user_age" : random.randint(18,23), "college" : college, "year_of_study" : year, "branch" : branch, "phone_no" : random.randint(1000000000, 9999999999), "gender" : gender, "photo" : None, "about" : "Blah Blah Blah"}
     b = user_profile_col.insert_one(user_dict)
-    hostel_profile_dict = {"hostel_id" : i+1, "owner_id" : i+1, }
+    hostel_profile_dict = {"hostel_id" : i+1, "owner_id" : i+1, "hostel_name" : hostel, "area" : area, "price" : price*50, "type" : type_room, "intake" : random.randint(1,4), "washroom_type" : wash, "elect_bill" : random.choice(["Self pay", "Owner pay"])}
+    c = hostel_profile_col.insert_one(hostel_profile_dict)
+    hostel_rating = {"hostel_id" : i+1, "owner_id" : i+1, "user_name" : name, "rating" : random.randint(0, 5), "review" : review}
+    d = hostel_rating_col.insert_one(hostel_rating)
+    owner_detail = {"owner_id" : i+1, "owner_name" : owner, "phone_no" : random.randint(1000000000, 9999999999), "email" : f"{owner}@gmail.com"}
+    e = owner_detail_col.insert_one(owner_detail)
 
 
 
