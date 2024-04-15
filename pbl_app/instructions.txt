@@ -7,3 +7,12 @@ Files purpose:
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
 - check.py ~ This files automatically installs required python libraries is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
+- ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project.
+
+Tasks left to do:
+- Improving the styles of the app, namely colours, fonts and positions.
+- Improving the functions of the app, as few glitches has been found
+- Writing the code for backend part of the project, then integrating with the user interface.
+- Fix other errors and test the program. Then finallise the project along with web.
+
+
