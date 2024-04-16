@@ -2,15 +2,16 @@
  
 ## Title: CRoom, a solution that helps college students to find hostel, flats and roommates.
 
-## Domain: Student accommadation
+### Domain: Student accommadation
 
+<hr>
 <br>
 <h1>Abstract:</h1>
 Our project leverages modern technology to provide a user-friendly platform where college students can easily search for available hostel accomodation based on their preference and budget constraints. Moreover, students can connect with potential roomates through integrated chat features, facilitating informed decisions and fostering meaningfull connections. Additionally, our project empowers students to collaborate effetively by forming teams and coordinating housing arrangements seamlessly. With the ability to initiate direct communication with hostel owners for further inquiries.
 <hr>
 <br>
-<h1>Features:<h1>
-<ol>
+<h1>Features:</h1>
+<ul>
     <li>See hostels, flats and roommates in desired areas;</li>
     <li>Check the details of hostel, flat and roommates;</li>
     <li>See other interested students who have viewed in detail;</li>
@@ -20,7 +21,7 @@ Our project leverages modern technology to provide a user-friendly platform wher
     <li>Resonable price for calling, messaging and subscription</li>
     <li>Be a landlord</li>
     <li>And much much more....</li>
-</ol>
+</ul>
 <hr>
 <br>
 <h1>Technologies used:</h1>
@@ -36,13 +37,15 @@ Our project leverages modern technology to provide a user-friendly platform wher
 <hr>
 <br>
 <h1>Summary:</h1>
-our project aims to streamline the process of finding hostel accomodation and roommates for college students. Leveraging Python, Kivy and MongoDB, we are developing both website and mobile application to cater to our target audiance of college students and hostel owners.
-
-
-
+Our project aims to streamline the process of finding hostel accomodation and roommates for college students. Leveraging Python, Kivy and MongoDB, we are developing both website and mobile application to cater to our target audiance of college students and hostel owners.<br><br>
+Key features of our platform include an "interested students" student section, allowing users to express interest in specific hostels or roommates, the ability to form teams for housing arrangments, and direct calling functionality to connect with other users or hostel owners. Unlike existing platforms that often require expensive monthly subscriptions for calling privileges, our platform offerw a more affordable pay-per-call model, ensuring cost effective communication for users.<br><br>
+By addressing common pain points such as the inability to see existing hostelmates, limited group information options, and high subscription fees, our project aims to simplify the hostel search process and enhance the overall experience for college students. Through seamless integration of features and accessible pricing options, we strive to empower students to make informed housing decisions and forge meaningfull connections within their academic community.
 
 <br><br><br>
-all the best!!!
+Thank you for visiting and showing your interest!!!
+<hr>
+<br>
+
 
 <!--
 to do later:

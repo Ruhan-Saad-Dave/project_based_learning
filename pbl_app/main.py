@@ -71,7 +71,7 @@ class BLabel(Label):
 
 class Start1Page(Screen):
     '''
-    This is the 1st of the introduction page.
+    This is the 1st part of the introduction page.
 
     This page (and all the other 3 introduction page) explains what does our project offers.
 
@@ -110,12 +110,12 @@ class Start1Page(Screen):
 
 class Start2Page(Screen):
     '''
-    This is the 2nd of the introduction page.
+    This is the 2nd part of the introduction page.
 
     This page (and all the other 3 introduction page) explains what does our project offers.
 
     skip button - Takes the user directly to main page.
-    previous button - Takes the user to the previous page incase he/she accidentally press 'next' and didnt read the content.
+    previous button - Takes the user to the previous page incase he/she accidentally press 'next' and didn't read the content.
     next button - Takes the user to the next introduction page. 
     '''
     def __init__(self,**kwargs):    #Initiallization of the screen/page
@@ -156,7 +156,7 @@ class Start2Page(Screen):
 
 class Start3Page(Screen):
     '''
-    This is the 3rd of the introduction page.
+    This is the 3rd part of the introduction page.
 
     This page (and all the other 3 introduction page) explains what does our project offers.
 
@@ -166,53 +166,67 @@ class Start3Page(Screen):
     '''
     def __init__(self,**kwargs):    #Initiallization of the screen/page.
         super(Start3Page,self).__init__(**kwargs)
+        #Widgets holder for the content to be displayed.
         pg3 = BoxLayout(orientation = "vertical")
         logo3_label = RLabel(text = "#3Placeholder for project logo", size_hint = (1.0, 0.2), font_size = 30)
         my_text2 = "We also provide:\n  Zer0 paper work,\n  Zer0 brokerage,\n  Zer0 Installment,\n  Reasonable price for\ncall and subscription!"
         text3_label = RLabel(text = my_text2, font_size = 30)
 
+        #Widgets holder for the buttons.
         pg3_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn3_skip = Button(text = "Skip", size_hint = (0.3, 1.0), on_press = self.skip)
         btn3_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
         btn3_next = Button(text = "Next", size_hint = (0.3, 1.0), on_press = self.next)
+        #Adds the button to the holder.
         pg3_1.add_widget(btn3_skip)
         pg3_1.add_widget(btn3_pre)
         pg3_1.add_widget(btn3_next)
 
-
+        #Adds all the widgets to the outer most holder, and saving it to the screen/page.
         pg3.add_widget(logo3_label)
         pg3.add_widget(text3_label)
         pg3.add_widget(pg3_1)
         self.add_widget(pg3)
 
-    def skip(self, instance):
+    def skip(self, instance):    #Function for the 'skip' button.
         self.manager.transition = SlideTransition(direction = "up")
         self.manager.current = "mainpage"
     
-    def pre(self, instance):
+    def pre(self, instance):    #Function for the 'previous' button.
         self.manager.transition = SlideTransition(direction = "right")
         self.manager.current = "start2page"
     
-    def next(self, instance):
+    def next(self, instance):    #Function for the 'next' button.
         self.manager.transition = SlideTransition()
         self.manager.current = "start4page"
 
 class Start4Page(Screen):
-    def __init__(self,**kwargs):
+    '''
+    This is the 4th part of the introduction page.
+
+    This page (and all the other 3 introduction page) explains what does our project offers.
+
+    previous button - Takes the user to the previous page incase he/she accidentally press 'next' and didnt read the content.
+    start button - Takes the user to the main page. 
+    '''
+    def __init__(self,**kwargs):    #Initialization of the screen/page.
         super(Start4Page,self).__init__(**kwargs)
+        #Widgets holder for the content to be displayed.
         pg4 = BoxLayout(orientation = "vertical")
         logo4_label = RLabel(text = "#4Placeholder for project logo", size_hint = (1.0, 0.3), font_size = 30)
         text4_label = RLabel(text = "So what are you \nwaiting for?", size_hint = (1.0,0.3), font_size = 30)
         text4_1_label = RLabel(text = "Put on your shoes\nand lets get\nstarted", size_hint = (1.0,0.3), font_size = 30)
         text4_2_label = RLabel(text = "#Placeholder for image", size_hint = (1.0, 0.3), font_size = 30)
 
+        #Widgets holder for the buttons.
         pg4_1 = BoxLayout(size_hint = (1.0, 0.2))
         btn4_start = Button(text = "Start", size_hint = (0.3, 1.0), on_press = self.start)
         btn4_pre = Button(text = "Previous", size_hint = (0.3, 1.0), on_press = self.pre)
+        #Adds the button to the holder
         pg4_1.add_widget(btn4_pre)
         pg4_1.add_widget(btn4_start)
         
-
+        #Adds all the widgets to the outer most holder, and saving it to the screen/page.
         pg4.add_widget(logo4_label)
         pg4.add_widget(text4_label)
         pg4.add_widget(text4_1_label)
@@ -220,11 +234,11 @@ class Start4Page(Screen):
         pg4.add_widget(pg4_1)
         self.add_widget(pg4)
 
-    def start(self, instance):
+    def start(self, instance):    #Function for the 'start' button.
         self.manager.transition = SlideTransition(direction = "up")
         self.manager.current = "mainpage"
     
-    def pre(self, instance):
+    def pre(self, instance):    #Function for the 'previous' button.
         self.manager.transition = SlideTransition(direction = "right")
         self.manager.current = "start3page"
 

@@ -3,9 +3,9 @@ It is recommended to run the main.py file directly.
 Focus on working in the file designated to you and try to avoid looking and changing the data in other files to prevent confusion.
 
 Files purpose:
-- main.py ~ This is the main/ central part of the program, run directly.
+- main.py ~ This is the main/central part of the program, run directly.
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
-- check.py ~ This files automatically installs required python libraries is not present in the user's device.
+- check.py ~ This files automatically installs required python libraries which is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
 - ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project.
 
