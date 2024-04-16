@@ -243,13 +243,28 @@ class Start4Page(Screen):
         self.manager.current = "start3page"
 
 class MainPage(Screen):
-    def __init__(self,**kwargs):
+    """
+    This is the main page or the main dashboard of the project.
+
+    This page shows all the available hotels, flats and roommates based on your desired area. You can select the type of accommodaton you like,
+    see the basic details of them, and also get access to more tools.
+
+    hostel button: Displays all the hostels available if area not specified, else show hostel in the mentioned area.
+    flat button: Displays all the flats available if area not specified, else show flats in the mentioned area.
+    roommate button: Displays all users available as roommate in similar way.
+    search button: Searches for all the properties with the specified area, you can specifythe area in the textbox given next to the button.
+    tools button: Gives you more features to try that the project offers.
+    go button (->): Takes the screen control to the property that you have chosen to see more details.
+    """
+    def __init__(self,**kwargs):    #Initializes the page/screen
         super(MainPage, self).__init__(**kwargs)
+        #Making of multiple widgets container to store the widgets
         out = BoxLayout(orientation = "vertical")
         top1 = BoxLayout(size_hint = (1.0, 0.1))
         top2 = BoxLayout(size_hint = (1.0, 0.1))
         top3 = BoxLayout(size_hint = (1.0, 0.1))
 
+        #Top part of the screen/page
         tools_btn = Button(text = "Tools", on_press = self.tools, size_hint = (0.3, 1.0))
         blank = BLabel(text = "____", size_hint = (0.3, 1.0))
         logo_label = BLabel(text = "#place for logo")
@@ -257,6 +272,7 @@ class MainPage(Screen):
         top1.add_widget(blank)
         top1.add_widget(logo_label)
 
+        #Options button to select between hostel, flat and roommate. Will show corresponding data.
         self.hostel_btn = ToggleButton(text = "Hostel", on_press = self.hostel_func, state = "down")
         self.flat_btn = ToggleButton(text = "Flat", on_press = self.flat_func)
         self.roommate_btn = ToggleButton(text = "Room Mate", on_press = self.roommate_func)
@@ -264,16 +280,18 @@ class MainPage(Screen):
         top2.add_widget(self.flat_btn)
         top2.add_widget(self.roommate_btn)
 
+        #Text input and search button to check for specified area.
         self.textinput = TextInput(hint_text = "search", multiline = False)
         search_btn = Button(text = "search", on_press = self.search, size_hint = (0.1, 1.0))
         top3.add_widget(self.textinput)
         top3.add_widget(search_btn)
 
+        #Shows all the relevant properties based on type and area, and also shows basic details of each.
         self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
         self.grid = GridLayout(cols = 1, size_hint_y = None)
         self.grid.bind(minimum_height = self.grid.setter('height'))
         self.buttons = []
-        for i in range(10):
+        for i in range(10):    ##Displays the details one by one, for now just showing random details, but later will fix it
             htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Boys", "Girls", "All"])
@@ -298,20 +316,20 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-
+        #Saving all the widgets on the screen
         out.add_widget(top1)
         out.add_widget(top2)
         out.add_widget(top3)
         out.add_widget(self.scroll)
         self.add_widget(out)
 
-    def hostel_func(self, instance):
+    def hostel_func(self, instance):    #Function to display all the hostels of required area.
         self.flat_btn.state = "normal"
         self.roommate_btn.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
         self.buttons = []
-        for i in range(10):
+        for i in range(10):    ##Displays the details one by one, for now just showing random details, but later will fix it
             htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Boys", "Girls", "All"])
@@ -336,13 +354,13 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-    def flat_func(self, instance):
+    def flat_func(self, instance):    #Function to display all the flats of required area
         self.hostel_btn.state = "normal"
         self.roommate_btn.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
         self.buttons = []
-        for i in range(10):
+        for i in range(10):    ##Displays the details one by one, for now just showing random details, but later will fix it
             htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Boys", "Girls", "All"])
@@ -367,13 +385,13 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-    def roommate_func(self, instance):
+    def roommate_func(self, instance):    ##Function to display all the user in a specified area, will work on filtering preference.
         self.flat_btn.state = "normal"
         self.hostel_btn.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
         self.buttons = []
-        for i in range(10):
+        for i in range(10):    ##Displays the details one by one, for now just showing random details, but later will fix it
             htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
             rtext = random.randint(1, 9)
             ttext = random.choice(["Room", "Roommate"])
@@ -398,43 +416,61 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-    def gohost(self, instance):
+    def gohost(self, instance):    #Function to take the user to see the details of the clicked hostel.
         self.manager.transition = FadeTransition()
         self.manager.current = "hostelpage"
-    def goflat(self, instance):
+    def goflat(self, instance):    #Function to take the user to see the details of the clicked flat.
         self.manager.transition = FadeTransition()
         self.manager.current = "flatpage"
-
-    def goroom(self, instance):
+    def goroom(self, instance):    #Function to take the user to see the details of the clicked user.
         self.manager.transition = FadeTransition()
         self.manager.current = "roompage"
 
-    def search(self, instance):
+    def search(self, instance):    #Function to search for all the properties in the area entered at the text box.
         area = self.textinput.text
         for button in self.buttons:
-            button.text = f"Area :{self.textinput.text}"
-    def goto(self, instance):
-        self.manager.transition = FadeTransition()
-        self.manager.current = "blank"       
+            button.text = f"Area :{self.textinput.text}"     
 
-    def tools(self,instance):
+    def tools(self,instance):    #Functions to show all the other features offered by the project.
         self.manager.transition = CardTransition(direction = "right", mode = "push")
         self.manager.current = "toolpage"
 
 class ToolPage(Screen):
-    def __init__(self,**kwargs):
+    """
+    This is the tool page which displays all the features available for the user to choose.
+
+    The user can choose to see messages, see profile, check for teams, upgrades, saved profiles,
+    terms & policies, be a landlord, FAQs, settings and AI assistent(Not started yet)
+
+    back button: Takes the user back to main screen.
+    message button: Shows all the messages received and also sends messages.
+    profile button: Takes the user to profile page, can also change account or log-in.
+    team button: Shows all the teams formed by other users. Can join or create own team.
+    saved button: Shows all the profiles saved by the user.
+    upgrades button: Here the user can make purchases. It can be calls, messages and subscription.
+    terms button: Shows all the terms & conditions that the user needs to agree on.
+    landlord button: Takes the user to a website where they can be a landlord.
+    faq button: For Answerable Questions.
+    settings button: Just what the name suggests.
+    Assistant button: Coming soon.
+    """
+    def __init__(self,**kwargs):    #Initialization of the screen/page.
         super(ToolPage,self).__init__(**kwargs)
+        #Making of a widget holder to store all the widgets.
         layout = BoxLayout(orientation = 'vertical')
+        #Widget holder for the top part of the page
         top_box = BoxLayout(orientation = 'horizontal', size_hint = (1.0, 0.2))
         back_btn = Button(text = "Back", on_press = self.back, size_hint = (0.2, 1.0))
         logo_image = Image(source = 'user_logo.png', size_hint = (0.3, 1.0))
         user_name = BLabel(text="user_name")
         mess_btn = Button(text = "message", on_press = self.mess, size_hint = (0.2, 1.0))
+        #Adding of widgets to the holder.
         top_box.add_widget(back_btn)
         top_box.add_widget(logo_image)
         top_box.add_widget(user_name)
         top_box.add_widget(mess_btn)
 
+        #Widgets holder for all the features.
         btn_box = BoxLayout(orientation = "vertical")
         prof_btn = Button(text = "Profile", on_press = self.prof)
         team_btn = Button(text = "Team", on_press = self.team)
@@ -442,6 +478,7 @@ class ToolPage(Screen):
         upgrade_btn = Button(text = "Upgrades", on_press = self.upgrade)
         term_btn = Button(text = "Terms & Policies", on_press = self.term)
         land_btn = Button(text = "Be a Landlord", on_press = self.land)
+        #Adding of widgets to the holder.
         btn_box.add_widget(prof_btn)
         btn_box.add_widget(team_btn)
         btn_box.add_widget(saved_btn)
@@ -449,58 +486,58 @@ class ToolPage(Screen):
         btn_box.add_widget(term_btn)
         btn_box.add_widget(land_btn)
 
+        #Adding a seperation for widgets placements.
         sepa = BoxLayout(size_hint = (1.0, 0.2))
         line = Color(0,0,0,1)
         sepa.canvas.add(Line(points = (0,0, layout.width, 1), color = line))
 
+        #Final widgets holder.
         bot = BoxLayout(size_hint = (1.0, 0.2))
         faq_btn = Button(text = "FAQs", on_press = self.faq)
         set_btn = Button(text = "Settings", on_press = self.setf)
         bot.add_widget(faq_btn)
         bot.add_widget(set_btn)
 
+        #Saving all the widgets and holders to the page.
         layout.add_widget(top_box)
         layout.add_widget(btn_box)
         layout.add_widget(sepa)
         layout.add_widget(bot)
-
         self.add_widget(layout)
 
-    def back(self, instance):
+    def back(self, instance):    #Function to transfer user to main page.
         self.manager.transition = CardTransition(direction = "left", mode = "pop")
         self.manager.current = "mainpage"
 
-    def mess(self,instance):
+    def mess(self,instance):    #Function to transfer user to message page.
         self.manager.transition = FadeTransition()
         self.manager.current = "messagepage"
     
-    def prof(self,instance):
+    def prof(self,instance):    #Function to transfer user to profile page.
         self.manager.transition = FadeTransition()
         self.manager.current = "profilepage"
-    def team(self, instance):
+    def team(self, instance):    #Function to transfer user to team page.
         self.manager.transition = FadeTransition()
         self.manager.current = "teampage"
-    def save(self, instance):
+    def save(self, instance):    #Function to transfer user to saved page
         self.manager.transition = FadeTransition()
         self.manager.current = "savedpage"
-    def upgrade(self, instance):
+    def upgrade(self, instance):    #Function to transfer used to upgrade page.
         self.manager.transition = FadeTransition()
         self.manager.current = "upgradepage"
-    def term(self, instance):
+    def term(self, instance):    #Function to transfer used to terms page.
         self.manager.transition = FadeTransition()
         self.manager.current = "termspage"
-    def land(self, instance):
-        # Define the website link
+    def land(self, instance):    #Function to transfer user to website for being a landlord.
         website_link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        
-        # Open the website link in the default web browser
         webbrowser.open(website_link)
-    def faq(self, instance):
+    def faq(self, instance):    #Function to transfer user to FAQs page.
         self.manager.transition = FadeTransition()
         self.manager.current = "faqpage"
-    def setf(self, instance):
+    def setf(self, instance):    #Function to transfer user to settings page.
         self.manager.transition = FadeTransition()
         self.manager.current = "settingspage"
+    #One more button for AI assistant.
 
 class MessagePage(Screen):
     def __init__(self,**kwargs):
