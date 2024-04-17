@@ -540,10 +540,17 @@ class ToolPage(Screen):
     #One more button for AI assistant.
 
 class MessagePage(Screen):
+    """
+    This page contains the message service.
+
+    The user can see all the incoming messages, write a message, and chat with other users.
+    """
     def __init__(self,**kwargs):
         super(MessagePage,self).__init__(**kwargs)
+        #Outer most layer of widget holder
         layout = BoxLayout(orientation='vertical')
 
+        #Widget holder for the top part of the screen.
         top_box = BoxLayout(orientation='horizontal', size_hint_y=0.15)
         back_button = Button(text='Back',size_hint_x = 0.2,  on_press=self.back)
         self.textinput = TextInput(hint_text='Search Messages')
@@ -552,16 +559,18 @@ class MessagePage(Screen):
         top_box.add_widget(self.textinput)
         top_box.add_widget(search_button)
 
+        #Options to choose between focused message(by other users) and other message(spam, advertisement etc.)
         toggle_box = BoxLayout(orientation='horizontal', size_hint_y=0.25)
         self.focused_button = ToggleButton(text='Focused', on_press=self.focus, state = "down")
         self.other_button = ToggleButton(text='Other', on_press=self.other)
         toggle_box.add_widget(self.focused_button)
         toggle_box.add_widget(self.other_button)
 
+        #Shows all the income message.
         self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
         self.grid = GridLayout(cols = 1, size_hint_y = None)
         self.grid.bind(minimum_height = self.grid.setter('height'))
-        for i in range(10):
+        for i in range(10):    #Temporarily makes random chats.
             htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Mayur", "Ayush"])
             btn_layout = BoxLayout(size_hint_y = None, height = 150)
             btn_img = BLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
@@ -577,20 +586,20 @@ class MessagePage(Screen):
             self.grid.add_widget(btn_layout)
         self.scroll.add_widget(self.grid)
 
+        #This part is under construction
+        #write = Button(text = "Write message", size_hint_y = 0.2, on_press = self.goto)
 
-        write = Button(text = "Write message", size_hint_y = 0.2, on_press = self.goto)
-
+        #Adds all the widgets to the outer most widgets holder and saving it to the screen.
         layout.add_widget(top_box)
         layout.add_widget(toggle_box)
         layout.add_widget(self.scroll)
         #layout.add_widget(write)
-
         self.add_widget(layout)
 
-    def back(self, instance):
+    def back(self, instance):    #Function to take user back to the tools page.
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
-    def search(self, instance):
+    def search(self, instance):    #Search for specific user's message.
         area = self.textinput.text
         if area:
             self.grid.clear_widgets()
@@ -609,13 +618,13 @@ class MessagePage(Screen):
             self.grid.add_widget(btn_layout)
             self.scroll.add_widget(self.grid)
 
-    def goto(self, instance):
+    def goto(self, instance):    #under construction
         self.manager.transition = FadeTransition()
         self.manager.current = "blank"
-    def gomess(self, instance):
+    def gomess(self, instance):    #Transfer the user to see in detail the messages of the selected user.
         self.manager.transition = CardTransition(direction = "left", mode = "push")
         self.manager.current = "messpage"
-    def focus(self, instance):
+    def focus(self, instance):    #Shows all the focused messages on the screen. Mainly from all users.
         self.other_button.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
@@ -634,7 +643,7 @@ class MessagePage(Screen):
             btn_layout.add_widget(go_btn)
             self.grid.add_widget(btn_layout)
         self.scroll.add_widget(self.grid)
-    def other(self, instance):
+    def other(self, instance):    #Shows all the other messages on the screem. Namely spam, advertisement, sponser.
         self.focused_button.state = "normal"
         self.grid.clear_widgets()
         self.scroll.clear_widgets()
