@@ -45,6 +45,16 @@ By addressing common pain points such as the inability to see existing hostelmat
 Thank you for visiting and showing your interest!!!
 <hr>
 <br>
+<h1>Files explaination:</h1>
+<b>.venv folder</b> ~ This folder is used for virtual environment.<br>
+<b>.vscode folder</b> ~ Not sure why this folder exists, it is automatically added by VSCode.<br>
+<b>pbl_app folder</b> ~ This folder contains the application side of the project. Recommend to run 'main.py' directly, do check for library installations.<br>
+<b>pbl_web folder</b> ~ This folder conatians the website part of the project. There is website for users as well as owners. Still under construction.<br>
+<b>.gitattributes file</b> ~ A file created by github, as the project is stored on a github repository.<br>
+<b>members.txt</b> ~ A file containing names of all the members who are working for the project, also used for teaching teammates how to contribute on github.<br>
+<b>README.md</b> ~ The file that you are reading right now. Explains what the project does.<br>
+<hr><br>
+
 
 
 <!--

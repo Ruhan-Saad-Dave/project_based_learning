@@ -7,6 +7,7 @@ Files purpose:
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
 - check.py ~ This files automatically installs required python libraries which is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
+- styles.py ~ This file does all the custom styling for the widgets.
 - ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project.
 - image_dir ~ A folder which stores all the images used by the project.
 - csv_dir ~ A folder which stores all the csv files. Use as temporary local database.
