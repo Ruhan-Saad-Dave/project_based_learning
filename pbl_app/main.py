@@ -245,6 +245,11 @@ class MainPage(Screen):
         self.grid = GridLayout(cols = 1, size_hint_y = None)
         self.grid.bind(minimum_height = self.grid.setter('height'))
         self.buttons = []
+        self.host = []
+        self.area = []
+        self.rate = []
+        self.type = []
+        self.id = []
         for i in range(10):    ##Displays the details one by one, for now just showing random details, but later will fix it
             htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
             rtext = random.randint(1, 9)
@@ -264,10 +269,15 @@ class MainPage(Screen):
             in_btn_layout.add_widget(type_name)
             in_btn_layout.add_widget(sep_name)
             btn_layout.add_widget(in_btn_layout)
-            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.gohost)
-            btn_layout.add_widget(go_btn)
+            self.go_btn = Button(text = f"-> {i}", size_hint_x = 0.2, on_press = self.gohost)
+            btn_layout.add_widget(self.go_btn)
             self.grid.add_widget(btn_layout)
             self.buttons.append(area_name)
+            self.host.append(htext)
+            self.area.append(self.textinput.text)
+            self.rate.append(rtext * 500)
+            self.type.append(ttext)
+            self.id.append(i)
         self.scroll.add_widget(self.grid)
 
         #Saving all the widgets on the screen
@@ -370,7 +380,14 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-    def gohost(self, instance):    #Function to take the user to see the details of the clicked hostel.
+    def gohost(self, instance, value):    #Function to take the user to see the details of the clicked hostel.
+        id = self.go_btn[-1]
+        with open('pbl_app\\main_ram.txt', 'w') as file:
+            file.write(self.host[id] + '\n')
+            file.write(self.area[id] + '\n')
+            file.write(str(self.rate[id]) + '\n')
+            file.write(self.type[id] + '\n')
+
         self.manager.transition = FadeTransition()
         self.manager.current = "hostelpage"
     def goflat(self, instance):    #Function to take the user to see the details of the clicked flat.
@@ -1523,6 +1540,17 @@ class SettingsPage(Screen):
 class HostelPage(Screen):
     def __init__(self, **kwargs):
         super(HostelPage, self).__init__(**kwargs)
+
+        word_list = []    #This part is used to retrive information from the selected hostel, to avoid chaos.
+        count = 0
+        with open('pbl_app\\main_ram.txt', 'r') as file:
+            for line in file:
+                word_list.append(line.strip())
+                count += 1
+            file.close()
+        if count < 4:
+            word_list = ['','',0,'']
+
         self.layout = BoxLayout(orientation = "vertical")
 
         top = BoxLayout(size_hint_y = 0.2)
@@ -1532,17 +1560,17 @@ class HostelPage(Screen):
         top.add_widget(label)
         self.layout.add_widget(top)
 
-        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
-        rtext = random.randint(1, 9)
-        ttext = random.choice(["Boys", "Girls", "All"])
-        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
+        htext = word_list[0]
+        atext = word_list[1]
+        rtext = word_list[2]
+        ttext = word_list[3]
         btn_layout = BoxLayout(size_hint_y = None, height = 150)
         btn_img = LBLabel(text = f"#image", size_hint_x = None, width = 150)
         btn_layout.add_widget(btn_img)
         in_btn_layout = BoxLayout(orientation = "vertical")
         host_name = LBLabel(text = f"Hostel {htext}")
         area_name = LBLabel(text = f"Area :{atext}")
-        rate_name = LBLabel(text = f"Rate: {rtext * 500}")
+        rate_name = LBLabel(text = f"Rate: {rtext}")
         type_name = LBLabel(text = f"Type: {ttext}")
         sep_name = LBLabel(text = "_"*100)
         in_btn_layout.add_widget(host_name)
@@ -1576,52 +1604,7 @@ class HostelPage(Screen):
     def back(self, instance):
         self.manager.transition = FadeTransition()
         self.manager.current = "mainpage"
-        self.layout.clear_widgets()
-        top = BoxLayout(size_hint_y = 0.2)
-        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
-        label = LBLabel(text = "Hostel")
-        top.add_widget(back_btn)
-        top.add_widget(label)
-        self.layout.add_widget(top)
-
-        htext = random.choice(["Krishna", "A1", "Roshani", "Patil", "Royal", "Paradise", "Zolo"])
-        rtext = random.randint(1, 9)
-        ttext = random.choice(["Boys", "Girls", "All"])
-        atext = random.choice(["Akurdi", "Pimpri", "Lonavala", "Pune", "Vashi", "Nerul", "Ulwe", "Mumbai"])
-        btn_layout = BoxLayout(size_hint_y = None, height = 150)
-        btn_img = LBLabel(text = f"#image", size_hint_x = None, width = 150)
-        btn_layout.add_widget(btn_img)
-        in_btn_layout = BoxLayout(orientation = "vertical")
-        host_name = LBLabel(text = f"Hostel {htext}")
-        area_name = LBLabel(text = f"Area :{atext}")
-        rate_name = LBLabel(text = f"Rate: {rtext * 500}")
-        type_name = LBLabel(text = f"Type: {ttext}")
-        sep_name = LBLabel(text = "_"*100)
-        in_btn_layout.add_widget(host_name)
-        in_btn_layout.add_widget(area_name)
-        in_btn_layout.add_widget(rate_name)
-        in_btn_layout.add_widget(type_name)
-        in_btn_layout.add_widget(sep_name)
-        btn_layout.add_widget(in_btn_layout)
-        self.layout.add_widget(btn_layout)
-
-        sic =  BoxLayout(size_hint_y = 0.2)
-        save_btn = Button(text = "Save", on_press = self.save)
-        inter_btn = Button(text = "Interested", on_press = self.inter)
-        call_btn = Button(text = "Call", on_press = self.call)
-        sic.add_widget(save_btn)
-        sic.add_widget(inter_btn)
-        sic.add_widget(call_btn)
-        self.layout.add_widget(sic)
-
-        fac_label = LBLabel(text = "Facilities", size_hint_y = 0.2)
-        self.layout.add_widget(fac_label)
-        fac_grid = GridLayout(cols = 4)
-        for i in range(random.randint(1,8)):
-            txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
-            fac_btn = Button(text = f"{txt}", disabled = True)
-            fac_grid.add_widget(fac_btn)
-        self.layout.add_widget(fac_grid)
+        
         
     def save(self, instance):
         pass
