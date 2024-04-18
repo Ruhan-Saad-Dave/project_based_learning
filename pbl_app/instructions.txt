@@ -8,7 +8,7 @@ Files purpose:
 - test.py ~ This file is used for testing of programming code and concepts.
 - styles.py ~ This file does all the custom styling for the widgets.
 - instructions.txt ~ The file which you are reading right now. Explains what each files do.
-- ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project.
+- main_ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project. Used for main page and hostel/flat/roommate page.
 - image_dir ~ A folder which stores all the images used by the project.
 - csv_dir ~ A folder which stores all the csv files. Use as temporary local database.
 

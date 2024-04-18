@@ -380,8 +380,8 @@ class MainPage(Screen):
             self.buttons.append(area_name)
         self.scroll.add_widget(self.grid)
 
-    def gohost(self, instance, value):    #Function to take the user to see the details of the clicked hostel.
-        id = self.go_btn[-1]
+    def gohost(self, instance):    #Function to take the user to see the details of the clicked hostel.
+        id = int(self.go_btn.text[-1])
         with open('pbl_app\\main_ram.txt', 'w') as file:
             file.write(self.host[id] + '\n')
             file.write(self.area[id] + '\n')
@@ -698,12 +698,8 @@ class ProfilePage(Screen):
         bot.add_widget(bot_top)
         bot_grid = GridLayout(cols = 4)
         for i in range(14):
-            pre_box = BoxLayout(orientation = "vertical")
-            pre_logo = Image(source=f'pre{i+1}.png')
             pre_pre_label = LBLabel(text = f"{i+1}")
-            pre_box.add_widget(pre_logo)
-            pre_box.add_widget(pre_pre_label)
-            bot_grid.add_widget(pre_box)
+            bot_grid.add_widget(pre_pre_label)
         bot.add_widget(bot_grid)
         grid.add_widget(bot)
 
@@ -1551,14 +1547,14 @@ class HostelPage(Screen):
         if count < 4:
             word_list = ['','',0,'']
 
-        self.layout = BoxLayout(orientation = "vertical")
+        layout = BoxLayout(orientation = "vertical")
 
         top = BoxLayout(size_hint_y = 0.2)
         back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
         label = LBLabel(text = "Hostel")
         top.add_widget(back_btn)
         top.add_widget(label)
-        self.layout.add_widget(top)
+        layout.add_widget(top)
 
         htext = word_list[0]
         atext = word_list[1]
@@ -1578,38 +1574,43 @@ class HostelPage(Screen):
         in_btn_layout.add_widget(rate_name)
         in_btn_layout.add_widget(type_name)
         in_btn_layout.add_widget(sep_name)
-        btn_layout.add_widget(in_btn_layout)
-        self.layout.add_widget(btn_layout)
+        btn_layout.add_widget(in_btn_layout) 
+        layout.add_widget(btn_layout)
 
         sic =  BoxLayout(size_hint_y = 0.2)
-        save_btn = Button(text = "Save", on_press = self.save)
+        self.save_btn = ToggleButton(text = "Save", on_press = self.save)
         inter_btn = Button(text = "Interested", on_press = self.inter)
         call_btn = Button(text = "Call", on_press = self.call)
-        sic.add_widget(save_btn)
+        sic.add_widget(self.save_btn)
         sic.add_widget(inter_btn)
         sic.add_widget(call_btn)
-        self.layout.add_widget(sic)
+        layout.add_widget(sic)
 
         fac_label = LBLabel(text = "Facilities", size_hint_y = 0.2)
-        self.layout.add_widget(fac_label)
+        layout.add_widget(fac_label)
         fac_grid = GridLayout(cols = 4)
         for i in range(random.randint(1,8)):
             txt = random.choice(["wifi", "Washing machine", "Cupboard", "Private washroom", "Gyser", "Water purifier", "Gym", "Garden", "Library", "Mess", "Computer centre"])
             fac_btn = Button(text = f"{txt}", disabled = True)
             fac_grid.add_widget(fac_btn)
-        self.layout.add_widget(fac_grid)
+        layout.add_widget(fac_grid)
 
-        self.add_widget(self.layout)
+        self.add_widget(layout)
         
     def back(self, instance):
+        self.save_btn.state = "normal"
+        self.save_btn.text = "save"
         self.manager.transition = FadeTransition()
-        self.manager.current = "mainpage"
-        
+        self.manager.current = "mainpage"    
         
     def save(self, instance):
-        pass
+        if self.save_btn.state == "down":
+            self.save_btn.text = "saved"
+        elif self.save_btn.state == "normal":
+            self.save_btn.text = "save"
     def inter(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "down", mode = "push")
+        self.manager.current = "hostelinterestpage"
     def call(self, instance):
         pass
 
@@ -1780,7 +1781,7 @@ class RoomPage(Screen):
         bot_top.add_widget(pre_label)
         bot.add_widget(bot_top)
         bot_grid = GridLayout(cols = 4)
-        for i in range(14):
+        for i in range(random.randint(1,13)):
             pre_box = BoxLayout(orientation = "vertical")
             pre_logo = Image(source=f'pre{i+1}.png')
             pre_pre_label = LBLabel(text = f"{i+1}")
@@ -1876,6 +1877,124 @@ class MessPage(Screen):
         btn_layout.add_widget(user_text)
         self.grid.add_widget(btn_layout)
 
+class HostelInterestPage(Screen):
+    def __init__(self, **kwargs):
+        super(HostelInterestPage, self).__init__(**kwargs)
+        layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = LBLabel(text = "Interested users.")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        layout.add_widget(top)
+
+        self.scroll = ScrollView(do_scroll_y = True, bar_width = 30, bar_color = (1,1,1,1))
+        self.grid = GridLayout(cols = 1, size_hint_y = None)
+        self.grid.bind(minimum_height = self.grid.setter('height'))
+        for i in range(4):    ##Displays the details one by one, for now just showing random details, but later will fix it
+            htext = random.choice(["Ruhan", "Yash", "Atul", "Prem", "Ayush", "Mayur"])
+            ttext = random.choice(["Room", "Roommate"])
+            btn_layout = BoxLayout(size_hint_y = None, height = 150)
+            btn_img = LBLabel(text = f"#image{i+1}", size_hint_x = None, width = 150)
+            btn_layout.add_widget(btn_img)
+            in_btn_layout = BoxLayout(orientation = "vertical")
+            host_name = LBLabel(text = f"{htext}")
+            type_name = LBLabel(text = f"Searching for: {ttext}")
+            sep_name = LBLabel(text = "_"*100)
+            in_btn_layout.add_widget(host_name)
+            in_btn_layout.add_widget(type_name)
+            in_btn_layout.add_widget(sep_name)
+            btn_layout.add_widget(in_btn_layout)
+            go_btn = Button(text = "->", size_hint_x = 0.2, on_press = self.seeuser)
+            btn_layout.add_widget(go_btn)
+            self.grid.add_widget(btn_layout)
+        self.scroll.add_widget(self.grid)
+        layout.add_widget(self.scroll)
+        self.add_widget(layout)
+
+    def back(self, instance):
+        self.manager.transition = CardTransition(direction = "up", mode = "pop")
+        self.manager.current = "hostelpage"
+
+    def seeuser(self, instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "hostintuserpage"
+
+class HostIntUserPage(Screen):
+    def __init__(self, **kwargs):
+        super(HostIntUserPage, self).__init__(**kwargs)
+        grid = BoxLayout(orientation = "vertical")
+        grid.bind(minimum_height = grid.setter('height'))
+
+        top = BoxLayout(size_hint_y = 0.15)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = LBLabel(text = "Profile      ")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        grid.add_widget(top)
+
+        top2 = BoxLayout(size_hint_y = 0.15)
+        logo = Image(source='logo.png', size_hint=(0.3, 1.0))
+        right_layout = BoxLayout(orientation='vertical')
+        username_label = LBLabel(text='Username')
+        area_layout = BoxLayout(size_hint_y = 0.25)
+        area_label = LBLabel(text='Area', size_hint=(0.7, 1.0))
+        area_layout.add_widget(area_label)
+        right_layout.add_widget(username_label)
+        right_layout.add_widget(area_layout)
+        top2.add_widget(logo)
+        top2.add_widget(right_layout)
+        grid.add_widget(top2)
+        
+        sepa1 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa1.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa1)
+
+        top3 = BoxLayout(orientation = "vertical", size_hint_y = 0.2)
+        base = LBLabel(text = "Basic Details:", size_hint_y = 0.3)
+        grid1 = GridLayout(cols = 2, y = 150)
+        gender = LBLabel(text = "gender : male", font_size = 30)
+        age = LBLabel(text = "age : 20", font_size = 30)
+        study = LBLabel(text = "Years of study : FE", font_size = 30)
+        branch = LBLabel(text = "Branch : CS", font_size = 30)
+        grid1.add_widget(gender)
+        grid1.add_widget(age)
+        grid1.add_widget(study)
+        grid1.add_widget(branch)
+        top3.add_widget(base)
+        top3.add_widget(grid1)
+        grid.add_widget(top3)
+
+        sepa2 = BoxLayout(size_hint_y = 0.05)
+        line = Color(1,0,0,1)
+        sepa2.canvas.add(Line(points = (0,0, grid.width, 1), color = line))
+        grid.add_widget(sepa2)
+
+        bot = BoxLayout(orientation = "vertical")
+        bot_top = BoxLayout(size_hint_y = 0.2)
+        pre_label = LBLabel(text = "Preference:")
+        bot_top.add_widget(pre_label)
+        bot.add_widget(bot_top)
+        bot_grid = GridLayout(cols = 4)
+        for i in range(random.randint(1,13)):
+            pre_box = BoxLayout(orientation = "vertical")
+            pre_logo = Image(source=f'pre{i+1}.png')
+            pre_pre_label = LBLabel(text = f"{i+1}")
+            pre_box.add_widget(pre_logo)
+            pre_box.add_widget(pre_pre_label)
+            bot_grid.add_widget(pre_box)
+        bot.add_widget(bot_grid)
+        grid.add_widget(bot)
+
+        self.add_widget(grid)
+
+    def back(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "hostelinterestpage"
+
+
 class Blank(Screen):
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
@@ -1914,6 +2033,8 @@ class ProjectApp(App):
         screen_manager.add_widget(HostelPage(name = "hostelpage"))
         screen_manager.add_widget(FlatPage(name = "flatpage"))
         screen_manager.add_widget(RoomPage(name = "roompage"))
+        screen_manager.add_widget(HostelInterestPage(name = "hostelinterestpage"))
+        screen_manager.add_widget(HostIntUserPage(name = "hostintuserpage"))
 
         
 
