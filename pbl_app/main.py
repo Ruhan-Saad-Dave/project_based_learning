@@ -18,6 +18,7 @@ from kivy.graphics import Color, Line, Rectangle
 
 import webbrowser    #Used to take user to a website
 import random    #Used for randomly generating artificial data, will be removed once the project will be launched in the market.
+import time    #Used for delaying appearance of few effects.
 from styles import *
 
 
@@ -1378,23 +1379,23 @@ class UpgradePage(Screen):
 
         call_box = BoxLayout()
         call_label = LBLabel(text = "Calls left:")
-        call_value_label = LBLabel(text = " ")
+        self.call_value_label = LBLabel(text = "0")
         call_box.add_widget(call_label)
-        call_box.add_widget(call_value_label)
+        call_box.add_widget(self.call_value_label)
         layout.add_widget(call_box)
 
         message_box = BoxLayout()
         message_label = LBLabel(text = "Messages left:")
-        message_value_label = LBLabel(text = " ")
+        self.message_value_label = LBLabel(text = "0")
         message_box.add_widget(message_label)
-        message_box.add_widget(message_value_label)
+        message_box.add_widget(self.message_value_label)
         layout.add_widget(message_box)
 
         sub_box = BoxLayout()
         sub_label = LBLabel(text = "Subscriptin end date:")
-        sub_value_label = LBLabel(text = " ")
+        self.sub_value_label = LBLabel(text = "0 months")
         sub_box.add_widget(sub_label)
-        sub_box.add_widget(sub_value_label)
+        sub_box.add_widget(self.sub_value_label)
         layout.add_widget(sub_box)
 
         purchase_label = RLabel(text = "Purchase:")
@@ -1437,11 +1438,19 @@ class UpgradePage(Screen):
         self.manager.transition = FadeTransition()
         self.manager.current = "toolpage"
     def call(self, instance):
-        pass
+        count = int(self.call_value_label.text)
+        count += random.randint(1,4)
+        self.call_value_label.text = f"{count}"
+
     def message(self, instance):
-        pass
+        count = int(self.message_value_label.text)
+        count += random.randint(1,4)
+        count *= 10
+        self.message_value_label.text = f"{count}"
     def sub(self, instance):
-        pass
+        count = int(self.sub_value_label.text[0])
+        count += random.randint(1,4)
+        self.sub_value_label.text = f"{count} months"
 
 class TermsPage(Screen):
     def __init__(self, **kwargs):
@@ -1667,7 +1676,8 @@ class HostelPage(Screen):
         self.manager.transition = CardTransition(direction = "down", mode = "push")
         self.manager.current = "hostelinterestpage"
     def call(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "down", mode = "push")
+        self.manager.current = "callpage"
 
 class FlatPage(Screen):
     def __init__(self, **kwargs):
@@ -1781,7 +1791,8 @@ class FlatPage(Screen):
         self.manager.transition = CardTransition(direction = "down", mode = "push")
         self.manager.current = "flatinterestpage"
     def call(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "down", mode = "push")
+        self.manager.current = "callpage"
 
 class RoomPage(Screen):
     def __init__(self, **kwargs):
@@ -2943,7 +2954,8 @@ class SaveHostelPage(Screen):
         self.manager.transition = CardTransition(direction = "down", mode = "push")
         self.manager.current = "savehostelinterestpage"
     def call(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "down", mode = "push")
+        self.manager.current = "callpage"
 
 class SaveFlatPage(Screen):
     def __init__(self, **kwargs):
@@ -3057,7 +3069,8 @@ class SaveFlatPage(Screen):
         self.manager.transition = CardTransition(direction = "down", mode = "push")
         self.manager.current = "saveflatinterestpage"
     def call(self, instance):
-        pass
+        self.manager.transition = CardTransition(direction = "down", mode = "push")
+        self.manager.current = "callpage"
 
 class SaveRoomPage(Screen):
     def __init__(self, **kwargs):
@@ -3189,8 +3202,56 @@ class SaveRoomPage(Screen):
         bot.add_widget(bot_grid)
         self.grid.add_widget(bot)
 
+class CallPage(Screen):
+    def __init__(self, **kwargs):
+        super(CallPage, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation = "vertical")
+
+        top = BoxLayout(size_hint_y = 0.2)
+        back_btn = Button(text = "Back", size_hint_x = 0.2, on_press = self.back)
+        label = LBLabel(text = "Call")
+        top.add_widget(back_btn)
+        top.add_widget(label)
+        self.layout.add_widget(top)
+        
+        self.label = LBLabel(text = "Calling Owner")
+        self.layout.add_widget(self.label)
+        self.add_widget(self.layout)
+
+        self.calling(0)
+
+    def back(self,instance):
+        self.manager.transition = FadeTransition()
+        self.manager.current = "mainpage"
+    def calling(self, count):
+        for i in range(5):
+            if count == 1:
+                self.label.text = "Calling Owner ."
+            elif count == 2:
+                self.label.text = "Calling Owner .."
+            elif count == 3:
+                self.label.text = "Calling Owner ..."
+            elif count == 4:
+                self.label.text = "Calling Owner ...."
+            elif count == 5:
+                self.label.text = "Calling Owner ....."
+            elif count == 6:
+                self.label.text = "Calling Owner ......" 
+            elif count == 0:
+                self.label.text = "Calling Owner"
+            else:
+                count = 0
+            time.sleep(1)
+            count += 1 
+
 
 class Blank(Screen):
+    """
+    This is a page/screen used for development of the project. 
+    It is used as a placeholder for to be made pages.
+    Will be replaced with ready made page once work is done.
+    Dont delete this page as it will be usefull for future development.
+    """
     def __init__(self,**kwargs):
         super(Blank,self).__init__(**kwargs)
         button = Button(text = "Nothing to see here for now", on_press = self.next)
@@ -3200,9 +3261,13 @@ class Blank(Screen):
         self.manager.current = "mainpage"
 
 class ProjectApp(App):
+    """
+    This is the main part of the project which will be runned.
+    """
     def build(self):
-        screen_manager = ScreenManager()
+        screen_manager = ScreenManager()    #Manages all the screen
 
+        #Listing all the screens that will be used to navigate by the app.
         screen_manager.add_widget(Start1Page(name='start1page'))
         screen_manager.add_widget(Start2Page(name='start2page'))
         screen_manager.add_widget(Start3Page(name='start3page'))
@@ -3240,8 +3305,9 @@ class ProjectApp(App):
         screen_manager.add_widget(SaveHostelPage(name = "savehostelpage"))
         screen_manager.add_widget(SaveFlatPage(name = "saveflatpage"))
         screen_manager.add_widget(SaveRoomPage(name = "saveroompage"))
+        screen_manager.add_widget(CallPage(name = "callpage"))
 
         return screen_manager
     
-if __name__ == "__main__":
-    ProjectApp().run()
+if __name__ == "__main__":    #Checking if this file is being runned directly or as module.
+    ProjectApp().run()    #Starts the app.
