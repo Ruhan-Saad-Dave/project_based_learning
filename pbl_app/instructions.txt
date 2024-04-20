@@ -7,17 +7,17 @@ Files purpose:
 - check.py ~ This files automatically installs required python libraries which is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
 - styles.py ~ This file does all the custom styling for the widgets.
+- chat.py ~ This file contains the functions for chatbot to function.
 - instructions.txt ~ The file which you are reading right now. Explains what each files do.
 - main_ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project. Used for main page and hostel/flat/roommate page.
 - image_dir ~ A folder which stores all the images used by the project.
-- csv_dir ~ A folder which stores all the csv files. Use as temporary local database.
 
 Tasks left to do:
 - Improving the styles of the app, namely colours, fonts and positions.
 - Improving the functions of the app, as few glitches has been found
 - Writing the code for backend part of the project, then integrating with the user interface.
 - Fix other errors and test the program. Then finallise the project along with web.
-- Adding AI assistant (optional).
+
 
 
 
