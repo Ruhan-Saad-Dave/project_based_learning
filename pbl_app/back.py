@@ -39,7 +39,7 @@ import random
 AREA = ["Akurdi", "Pimpri", "Lonavala", "Shivaji Nagar","Talegaon", "Kanpur", "Pune", "Vashi", "Nerul", "Sanpada", "Juinagar", "Kalyan", "Ulwe", "Seawoods"]
 STUDENT_NAME = ["Ruhan", "Yash", "Prem", "Ayush", "Mayur", "Atul", "Raj", "Nikhil", "Hano", "Abhinav", "Sujay", "Shlok", "Charudatta", "Aditya", "Lokesh", "Yashraj", "Sahil"]
 YEAR_OF_STUDY = ["1st yr", "2nd yr", "3rd yr", "4th year", "Diploma"]
-BRANCH = ["Computer", "Mechanical", "Civil", "Chemical", "AIDS", "ENTC", "BBA", "B-ARCH"]
+BRANCH = ["Computer", "Mechanical", "Civil", "Chemical", "AIDS", "ENTC", "BBA", "B-ARCH", "Semi-Conductors", "Instruments", "Deploma"]
 HOSTEL_NAME = ["A1 Hostel", "Edunest Hostel", "StudentHaven Dormitory", "CampusComfort Residency", "Scholar's Retreat", "LearningLodge Hostel"]
 TYPE = ["Boys", "Girls", "All"]
 MESSAGE = ["Hi", "Hello", "How are you?", "I'm fine", "Wassup", "How do you do?", "I'm doing great", "Are you planning to stay here?", "Yes", "No", "Just a regular conversation", "I'm behind you, don't look back"]
