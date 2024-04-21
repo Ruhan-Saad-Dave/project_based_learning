@@ -1,14 +1,11 @@
-#This file is used for testing of code concepts.
+def add_newline_every_30_characters(input_string):
+    output = ''
+    for i in range(0, len(input_string), 30):
+        output += input_string[i:i+30] + '\n'
+    return output
 
-from kivy.app import App
-from kivy.uix.button import Button
-
-class MyApp(App):
-    def but(self, instance, val):
-        print(val)
-    
-    def build(self):
-        button = Button(text = "me", on_press = lambda instance: self.but(instance, "hi"))
-        return button
-
-MyApp().run()
+if __name__ == "__main__":
+    user_input = input("Enter a string: ")
+    result = add_newline_every_30_characters(user_input)
+    print("Result:")
+    print(result)

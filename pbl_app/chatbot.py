@@ -1,50 +1,57 @@
 #This file is used to create a chatbot for the app made is main.py file, it receives a user input, write suitable reply and returns it back. 
 
-def ask_chatbot(question):
-    """
-    This function is used to receive user input from the chatbot.
-    prompt is the query that the user have typed in
-    reply is the answer written by the bot
-    """
-    real_question = spell_check(question)
-    reply = question_answers(real_question)    
+import json
+
+LEARN = False
+Q = None
+
+def load_knowledge(filename):
+    try:
+        with open(filename, "r") as file:
+            data = file.read()
+            if not data:
+                return {}
+            return json.loads(data)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+def save_knowledge(filename, knowledge):
+    with open(filename, "w") as file:
+        json.dump(knowledge, file, indent=4)
+
+def ask_chatbot(prompt):
+    global LEARN
+    global Q
+    knowledge_file = "pbl_app\\knowledge.json"
+    knowledge = load_knowledge(knowledge_file)
+    
+    user_input = prompt.strip().lower()
+    if user_input == "":
+        reply = "You didn't enter anything!"
+    elif user_input in knowledge and Q == None:
+        reply = knowledge[user_input]
+    elif LEARN == False and user_input not in knowledge:
+        reply =  "I'm not sure how to respond to that. Please teach me the answer of it\n Type idk if you dont know."
+        LEARN = True
+        if prompt != "wo bu zhi dao":
+            Q = prompt
+    elif prompt.lower() == "wo bu zhi dao" and LEARN == True:
+        knowledge[Q] = "I'm not sure about the answer, will be updated soon."
+        save_knowledge(knowledge_file, knowledge)
+        reply = "Thanks for letting me know using the secret command!"
+        LEARN = False
+        Q = None      
+    elif prompt.lower() not in ["idk", "i dont know", "im not sure", "im not sure about the answer", "i dont know the answer"] and LEARN == True:
+        knowledge[Q] = prompt
+        reply = "Thanks for letting me know!"
+        save_knowledge(knowledge_file, knowledge)
+        LEARN = False
+        Q = None
+    else:
+        reply = "Thanks for telling me!"
+        LEARN = False
+        Q = None
 
     return reply
 
-def question_answers(question):
-    """
-    This function contains all the possible question that will be asked by the users, and suitable reply for all of them.
-    Also uses AI for spelling mistake checking
-    """
-    
-    question_set = {}
-    question_set["what is your name"] = "My name is CRat, I am the chatbot of this app."
-    question_set["how old are you"] = "I am a chat bot, I dont really have age"
-    question_set["where do you live"] = "I suppose I live on the internet"
-    question_set["where can i find hostels"] = "You can find hostels many places like Akurdi, Pimpri, Lonavala, Shivaji Nagar,Talegaon, Kanpur, Pune, Vashi, Nerul, Sanpada, Juinagar, Kalyan, Ulwe, Seawoods"
-    question_set["hi"] = "Hello, how can I help you?"
-    question_set["how are you"] = "I'm fine, thanks for asking!"
-    question_set["how are you doing"] = "I'm doing great, thanks for asking!"
-    question_set["are you planning to stay here"] = "Yes, I am planning to stay here, thanks for asking!"
-    question_set["hello"] = "Hi, how can I help you?"
-    question_set["what is your purpose"] = "I am here to help you answer some of your doubts."
-    question_set["ask me a question"] = "Suggest few questions and suitable replies for me to learn"
-    question_set[""] = "You didnt enter anything!"
-    question_set["give me money"] = "Nope. Go get a job!"
-    question_set["yo"] = "Wassup?"
 
-    if question in question_set:
-        answer = question_set[question]
-    else:
-        answer = "Sorry, I don't know the answer for this question."
-
-    return answer
-
-def spell_check(question):
-    """
-    This function check for spelling mistakes and return the question with correct spelling
-    """
-
-    correct_spelling = question.lower()
-
-    return correct_spelling

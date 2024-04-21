@@ -3,14 +3,17 @@ It is recommended to run the main.py file directly.
 
 Files purpose:
 - main.py ~ This is the main/central part of the program, run directly.
+- instructions.txt ~ The file which you are reading right now. Explains what each files do.
+- image_dir ~ A folder which stores all the images used by the project.
+- processing ~ A folder which stores all the files used by "main.py" to process information. This is done to help users to know which file to use easily.
+(Following in the "processing" folder)
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
 - check.py ~ This files automatically installs required python libraries which is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
 - styles.py ~ This file does all the custom styling for the widgets.
 - chat.py ~ This file contains the functions for chatbot to function.
-- instructions.txt ~ The file which you are reading right now. Explains what each files do.
 - main_ram.txt ~ This text file is a random access memory file. It will be used for processing information between the app pages in the project. Used for main page and hostel/flat/roommate page.
-- image_dir ~ A folder which stores all the images used by the project.
+
 
 Tasks left to do:
 - Improving the styles of the app, namely colours, fonts and positions.
