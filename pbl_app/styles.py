@@ -27,7 +27,7 @@ class RLabel(Label):
         self.canvas.before.clear()
         with self.canvas.before:
             # Set the color to red
-            Color(1, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            Color(0.75, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
             # Draw a rectangle behind the label
             Rectangle(pos=self.pos, size=self.size)
 
@@ -81,7 +81,7 @@ class LogoLabel(Label):
     def __init__(self, **kwargs):
         super(LogoLabel, self).__init__(**kwargs)
 
-        self.back_ground_colour = get_color_from_hex('#FFFFFF')
+        self.background_colour = get_color_from_hex('#FFFFFF')
         self.color = get_color_from_hex('#00008B')
 
 class FeatureButton(Button):
