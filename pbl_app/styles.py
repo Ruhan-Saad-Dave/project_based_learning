@@ -4,6 +4,8 @@ This file is used to design different styles for the widgets.
 
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.core.window import Window
 from kivy.graphics import Color, Line, Rectangle
 from kivy.utils import get_color_from_hex
 
@@ -17,6 +19,7 @@ class RLabel(Label):
     def __init__(self, **kwargs):
         '''Initiallization of the widget'''
         super(RLabel, self).__init__(**kwargs)
+        self.color = (0,0,0,1)
         # Bind the size and position properties to trigger the update_rect method
         self.bind(size=self.update_rect, pos=self.update_rect)    
         # Update the rectangle initially
@@ -27,7 +30,7 @@ class RLabel(Label):
         self.canvas.before.clear()
         with self.canvas.before:
             # Set the color to red
-            Color(1, 0, 0, 1)  # RGBA values, where (1, 0, 0, 1) represents red color
+            Color(1,1,225/255,1)  # RGBA values, where (1, 0, 0, 1) represents red color
             # Draw a rectangle behind the label
             Rectangle(pos=self.pos, size=self.size)
 
@@ -81,13 +84,35 @@ class LogoLabel(Label):
     def __init__(self, **kwargs):
         super(LogoLabel, self).__init__(**kwargs)
 
-        self.back_ground_colour = get_color_from_hex('#FFFFFF')
+        self.background_colour = get_color_from_hex('#FFFFFF')
         self.color = get_color_from_hex('#00008B')
 
 class FeatureButton(Button):
     def __init__(self, **kwargs):
         super(FeatureButton, self).__init__(**kwargs)
-        self.background_color = get_color_from_hex('#304CFF')
-        self.disabled = True
-        self.disabled_color = get_color_from_hex('#FFFFFF')
+        
+        self.background_color = get_color_from_hex('#FFFFE1')
+        self.color = get_color_from_hex('#E6F7FF')
 
+class MyTextInput(TextInput):
+    def on_focus(self, instance, value):
+        if value:
+            self.y = Window.height / 2
+        else:
+            self.y = 0
+
+class ChatTextInput(TextInput):
+    def __init__(self, **kwargs):
+        super(ChatTextInput, self).__init__(**kwargs)
+
+        self.background_color = (1,1,225/255,1)
+        self.readonly = True
+        self.foreground_color = (0,0,0,1)
+        self.allow_copy = False
+
+class ChatMyTextInput(TextInput):
+    def __init__(self, **kwargs):
+        super(ChatMyTextInput, self).__init__(**kwargs)
+
+        self.background_color = (0.5, 0.5, 1, 1)
+        self.readonly = True
