@@ -3,10 +3,9 @@ It is recommended to run the main.py file directly.
 
 Files purpose:
 - main.py ~ This is the main/central part of the program, run directly.
+- a_main.py ~ A file designed to be used on mobile for demonstration purpose.
 - instructions.txt ~ The file which you are reading right now. Explains what each files do.
 - image_dir ~ A folder which stores all the images used by the project.
-- processing ~ A folder which stores all the files used by "main.py" to process information. This is done to help users to know which file to use easily.
-(Following in the "processing" folder)
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
 - check.py ~ This files automatically installs required python libraries which is not present in the user's device.
 - test.py ~ This file is used for testing of programming code and concepts.
