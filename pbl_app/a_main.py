@@ -1,4 +1,4 @@
-from check import check_and_install_module as cim
+from pbl_app.processing.check import check_and_install_module as cim
 cim()    #Tests for presence of required libraries, need to keep this and the beginning to avoid any errors.
 
 #These are the sub-modules of the kivy library, which will be used to develop the app interface.
@@ -21,8 +21,8 @@ from kivy.utils import get_color_from_hex
 import webbrowser    #Used to take user to a website
 import random    #Used for randomly generating artificial data, will be removed once the project will be launched in the market.
 import time    #Used for delaying appearance of few effects.
-from styles import *
-from chatbot import ask_chatbot
+from pbl_app.processing.styles import *
+from pbl_app.processing.chatbot import ask_chatbot
 
 
 class Start1Page(Screen):
