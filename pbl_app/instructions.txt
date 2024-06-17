@@ -1,10 +1,28 @@
-This folder contains program for the mobile app side of the project, 
+This folder (pbl_app) contains program for the mobile app side of the project, 
 It is recommended to run the main.py file directly.
-Focus on working in the file designated to you and try to avoid looking and changing the data in other files to prevent confusion.
 
 Files purpose:
-- main.py ~ This is the main/ central part of the program, run directly.
-- check.py ~ This file checks if a certain module is present or not in the device. If not present it will do the installation.
-- pages.py ~ This is just the GUI of the introduction pages, it is kept in separate file to improve readability.
+- main.py ~ This is the main/central part of the program, run directly.
+- a_main.py ~ A file designed to be used on mobile for demonstration purpose.
+- test.py ~ This file is used for testing of programming code and concepts.
+- instructions.txt ~ The file which you are reading right now. Explains what each files do.
+
+- image_dir ~ A folder which stores all the images used by the project.
+- processing ~ Afolder which contains all the files used for processing.
+
 - back.py ~ This file handles the backend part of the program, where it handles data from main.py and gives to database, does some processing and return new data back to main.py
+- check.py ~ This files automatically installs required python libraries which is not present in the user's device.
+- styles.py ~ This file does all the custom styling for the widgets.
+- chatbot.py ~ This file contains the functions for chatbot to function.
+- knowledge.json ~ This file contains the dataset for the chatbot to reply user requests.
+- terms.txt ~ This file contains all the details to be shown for terms and conditions.
+
+Tasks left to do:
+- Improving the styles of the app, namely colours, fonts and positions.
+- Improving the functions of the app, as few glitches has been found
+- Writing the code for backend part of the project, then integrating with the user interface.
+- Fix other errors and test the program. Then finallise the project along with web.
+
+
+
 
