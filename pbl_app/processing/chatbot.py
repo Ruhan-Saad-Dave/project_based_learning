@@ -22,7 +22,7 @@ def save_knowledge(filename, knowledge):
 def ask_chatbot(prompt):
     global LEARN
     global Q
-    knowledge_file = "pbl_app\\knowledge.json"
+    knowledge_file = "pbl_app\\processing\\knowledge.json"
     knowledge = load_knowledge(knowledge_file)
     
     user_input = prompt.strip().lower()

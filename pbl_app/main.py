@@ -3426,9 +3426,9 @@ class ChatBotPage(Screen):
         
         user = "Chat Bot:"
         answer = "Hi, Im your friendly chatbot. How can I help you?"
-        btn_layout = BoxLayout(size_hint_y = None, height = 300)
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
         user_type = RLabel(text = f"{user}", size_hint_x = 0.2)
-        user_text = ChatTextInput(text = f"{answer}", font_size = 40)
+        user_text = ChatTextInput(text = f"{answer}", font_size = 20)
         btn_layout.add_widget(user_type)
         btn_layout.add_widget(user_text)
         self.grid.add_widget(btn_layout)
@@ -3438,7 +3438,7 @@ class ChatBotPage(Screen):
         self.layout.add_widget(mid)
 
         bottom = BoxLayout(size_hint_y = 0.2)
-        self.textinput = MyTextInput(hint_text = "Enter something?")
+        self.textinput = TextInput(hint_text = "Enter something?")
         send_btn = Button(text = "Send", size_hint_x = 0.2, on_press = self.send)
         bottom.add_widget(self.textinput)
         bottom.add_widget(send_btn)
@@ -3451,20 +3451,20 @@ class ChatBotPage(Screen):
         self.manager.current = "toolpage"
 
     def send(self,instance):
-        btn_layout = BoxLayout(size_hint_y = None, height = 300)
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
         btn_img = LBLabel(text = f"You:", size_hint_x = 0.2)
         btn_layout.add_widget(btn_img)
-        user_text = ChatMyTextInput(text = f"{self.textinput.text}", font_size = 40)
+        user_text = ChatMyTextInput(text = f"{self.textinput.text}", font_size = 20)
         response = ask_chatbot(self.textinput.text)
         self.textinput.text = ""
         btn_layout.add_widget(user_text)
         self.grid.add_widget(btn_layout)
         
         #Function that asks chatbot for reply and display on screen
-        btn_layout = BoxLayout(size_hint_y = None, height = 300)
+        btn_layout = BoxLayout(size_hint_y = None, height = 150)
         btn_img = RLabel(text = f"Chat Bot:", size_hint_x = 0.2)
         btn_layout.add_widget(btn_img)
-        self.bot_text = ChatTextInput(text = "Thinking of a suitable reply...", font_size = 40)
+        self.bot_text = ChatTextInput(text = "Thinking of a suitable reply...", font_size = 20)
         btn_layout.add_widget(self.bot_text)
         self.grid.add_widget(btn_layout)
         time.sleep(1)
